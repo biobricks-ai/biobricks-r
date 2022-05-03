@@ -2,6 +2,7 @@
 
 export(bake)
 export(bblib)
+export(initialize)
 export(install)
 export(install_gh)
 export(lazy)
