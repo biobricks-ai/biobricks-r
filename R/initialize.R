@@ -6,6 +6,6 @@ initialize <- function(){
     system(sprintf("(cd %s; git init)",bdir))
   }
   if(!file.exists(fs::path(bdir,".dvc"))){
-    system(sprintf("(cd %s; dvc init)"))
+    system(sprintf("(cd %s; dvc init)",bdir))
   }
 }
