@@ -15,10 +15,9 @@ install <- function(url){
 }
 
 #' Installs a brick from a github repo
-#' @param owner a github owner "biobricks-ai" in https://github.com/biobricks-ai/clinvar
-#' @param repo a github repo "clinvar" in https://github.com/biobricks-ai/clinvar
+#' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
-install_gh <- function(owner,repo){
-  cmd <- sprintf("https://github.com/%s/%s.git",owner,repo)
+install_gh <- function(repo){
+  cmd <- sprintf("https://github.com/%s/%s.git",repo)
   install(cmd)
 }
