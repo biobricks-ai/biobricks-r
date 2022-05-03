@@ -4,7 +4,7 @@ R package for biobricks
 ```R
 remotes::install_github("biobricks-ai/biobrickr")
 Sys.setenv(bblib="/mnt/biobricks") # set path for data dependencies
-biobrickr::initialize() # initialize the biobricks library
+biobrickr::initialize()            # init the biobricks library
 ```
 
 Load tables from [ncbi.nlm.nih.gov/clinvar](https://www.ncbi.nlm.nih.gov/clinvar/)
