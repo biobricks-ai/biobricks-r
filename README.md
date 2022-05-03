@@ -3,11 +3,11 @@ R package for biobricks
 
 ```R
 remotes::install_github("biobricks-ai/biobrickr")
+Sys.setenv(bblib="/mnt/biobricks") # set path for data dependencies
 ```
 
 Load tables from [ncbi.nlm.nih.gov/clinvar](https://www.ncbi.nlm.nih.gov/clinvar/)
 ```R
-Sys.setenv(bblib="/mnt/biobricks")
 biobrickr::install("https://github.com/biobricks-ai/clinvar.git")
 cv <- biobrickr::bake("clinvar")
 ds <- biobrickr::lazy(cv)
