@@ -1,6 +1,10 @@
 # biobrickr
 R package for biobricks
 
+```R
+remotes::install_github("biobricks-ai/biobrickr")
+```
+
 Load tables from [ncbi.nlm.nih.gov/clinvar](https://www.ncbi.nlm.nih.gov/clinvar/)
 ```R
 library(dplyr)
