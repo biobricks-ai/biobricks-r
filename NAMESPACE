@@ -3,5 +3,6 @@
 export(bake)
 export(bblib)
 export(install)
+export(install_gh)
 export(lazy)
 export(resolve)

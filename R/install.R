@@ -13,3 +13,12 @@ install <- function(url){
   gitcmd <- sprintf('(cd $bblib; %s)',cmd)
   system(gitcmd)
 }
+
+#' Installs a brick from a github repo
+#' @param owner a github owner "biobricks-ai" in https://github.com/biobricks-ai/clinvar
+#' @param repo a github repo "clinvar" in https://github.com/biobricks-ai/clinvar
+#' @export
+install_gh <- function(owner,repo){
+  cmd <- sprintf("https://github.com/%s/%s.git",owner,repo)
+  install(cmd)
+}
