@@ -9,5 +9,5 @@ initialize <- function(){
     system(sprintf("(cd %s; dvc init)",bdir))
   }
   fs::dir_create(bdir)
-  cat(sprintf("initialized biobricks to %s",bdir))
+  cat(sprintf("initialized biobricks to %s\n",bdir))
 }
