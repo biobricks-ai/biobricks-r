@@ -9,8 +9,8 @@ install <- function(url){
   repo  <- rev(fs::path_split(url)[[1]])[1:2]
   brick <- fs::path(bdir,repo[2],repo[1]) |> fs::path_ext_remove()
 
-  cmd <- sprintf('git submodule add %s %s',url,brick)
-  gitcmd <- sprintf('(cd $bblib; %s)',cmd)
+  cmd    <- sprintf('git submodule add %s %s',url,brick)
+  gitcmd <- sprintf('(cd %s; %s)',bdir,cmd)
   system(gitcmd)
 }
 
@@ -18,6 +18,6 @@ install <- function(url){
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
 install_gh <- function(repo){
-  cmd <- sprintf("https://github.com/%s/%s.git",repo)
+  cmd <- sprintf("https://github.com/%s.git",repo)
   install(cmd)
 }

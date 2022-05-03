@@ -6,5 +6,5 @@ bblib = function(){
     stop("must set 'bblib' env
     try `Sys.setenv(bblib='???')`")
   }
-  bblib  
+  fs::path_real(bblib)
 }

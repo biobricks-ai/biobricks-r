@@ -4,12 +4,10 @@
 \alias{install_gh}
 \title{Installs a brick from a github repo}
 \usage{
-install_gh(owner, repo)
+install_gh(repo)
 }
 \arguments{
-\item{owner}{a github owner "biobricks-ai" in https://github.com/biobricks-ai/clinvar}
-
-\item{repo}{a github repo "clinvar" in https://github.com/biobricks-ai/clinvar}
+\item{repo}{string with owner/repo eg. "biobricks-ai/clinvar"}
 }
 \description{
 Installs a brick from a github repo
