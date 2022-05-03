@@ -7,7 +7,6 @@ remotes::install_github("biobricks-ai/biobrickr")
 
 Load tables from [ncbi.nlm.nih.gov/clinvar](https://www.ncbi.nlm.nih.gov/clinvar/)
 ```R
-library(dplyr)
 Sys.setenv(bblib="/mnt/biobricks")
 biobrickr::install("https://github.com/biobricks-ai/clinvar.git")
 cv <- biobrickr::bake("clinvar")
@@ -25,7 +24,7 @@ names(ds)
 
 Each table is a lazy table that can be loaded into memory:
 ```R
-ds$allele_gene |> head() |> collect()
+ds$allele_gene |> head() |> dplyr::collect()
 # AlleleID GeneID Symbol  Name                  GenesPerAlleleID Category Source
 #    <dbl>  <dbl> <chr>   <chr>                            <dbl> <chr>    <chr> 
 #    15041   9907 AP5Z1   adaptor related prot…                1 within … submi…
