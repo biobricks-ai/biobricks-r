@@ -3,8 +3,8 @@
 #' @export
 #' @example 
 #' \dontrun{
-#' biobrickr::install("https://github.com/biobricks-ai/clinvar.git")
-#' biobrickr::bake("clinvar")
+#' biobricks::install("https://github.com/biobricks-ai/clinvar.git")
+#' biobricks::bake("clinvar")
 #' }
 bake <- function(brick){
   rbrick <- resolve(brick)
@@ -21,7 +21,7 @@ bake <- function(brick){
 #' @export
 #' @example 
 #' \dontrun{
-#' biobrickr::resolve("clinvar")
+#' biobricks::resolve("clinvar")
 #' }
 resolve <- function(brick){
   bd   <- bblib()

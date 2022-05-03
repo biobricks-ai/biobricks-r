@@ -1,17 +1,17 @@
-# biobrickr
+# biobricks
 R package for biobricks
 
 ```R
-remotes::install_github("biobricks-ai/biobrickr")
+remotes::install_github("biobricks-ai/biobricks-R")
 Sys.setenv(bblib="/mnt/biobricks") # set path for data dependencies
-biobrickr::initialize()            # init the biobricks library
+biobricks::initialize()            # init the biobricks library
 ```
 
 Load tables from [ncbi.nlm.nih.gov/clinvar](https://www.ncbi.nlm.nih.gov/clinvar/)
 ```R
-biobrickr::install("https://github.com/biobricks-ai/clinvar.git")
-cv <- biobrickr::bake("clinvar")
-ds <- biobrickr::lazy(cv)
+biobricks::install("https://github.com/biobricks-ai/clinvar.git")
+cv <- biobricks::bake("clinvar")
+ds <- biobricks::lazy(cv)
 ```
 
 View the table names:  
