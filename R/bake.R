@@ -1,19 +1,15 @@
 #' Generate and stores data from a biobrick in your `bblib()`
-#' @param brick the brick you would like to generate
+#' @param repo the brick you would like to generate
 #' @export
 #' @example 
 #' \dontrun{
 #' biobricks::install("https://github.com/biobricks-ai/clinvar.git")
 #' biobricks::bake("clinvar")
 #' }
-bake <- function(brick){
-  rbrick <- resolve(brick)
-  dvc    <- fs::path(rbrick,"dvc.yaml") |> fs::path_rel(bblib())
-  mnt    <- sprintf("-v %s:/biobricks/bricks",bblib())
-  dkr    <- sprintf("docker run --rm %s insilica/biobricks:latest",mnt)
-  cmd    <- sprintf("%s dvc repro %s",dkr,dvc)
-  system(cmd)
-  fs::path(rbrick,"data") |> fs::dir_ls()
+bake <- function(repo){
+  docker_run(
+    "dvc repro",
+    wd = sprintf("/biobricks/bricks/%s", repo))
 }
 
 #' Finds all the bricks in `bblib()` matching @param brick

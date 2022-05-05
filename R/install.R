@@ -1,23 +1,22 @@
 #' Installs a brick from a github repo
 #' @param url a url like https://github.com/biobricks-ai/clinvar.git
+#' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
-install <- function(url){ 
+install <- function(url,repo){
   
   if(!grepl("https://.*.git",url)){stop("url must be https://.../owner/repo.git")}
 
-  bdir  <- bblib()
-  repo  <- rev(fs::path_split(url)[[1]])[1:2]
-  brick <- fs::path(bdir,repo[2],repo[1]) |> fs::path_ext_remove()
-
-  cmd    <- sprintf('git submodule add %s %s',url,brick)
-  gitcmd <- sprintf('(cd %s; %s)',bdir,cmd)
-  system(gitcmd)
+  git_cmd <- sprintf("git submodule add %s %s", url, repo)
+  result  <- docker_run(git_cmd)
+  if (result == 0) {
+    docker_run(sprintf('git commit --author="biobricks <biobricks@insilica.co>" -m "added %s"', repo))
+  }
 }
 
 #' Installs a brick from a github repo
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
 install_gh <- function(repo){
-  cmd <- sprintf("https://github.com/%s.git",repo)
-  install(cmd)
+  url      <- sprintf("https://github.com/%s.git", repo)
+  install(url, repo)
 }
