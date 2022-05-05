@@ -1,3 +1,13 @@
+#' Update a brick
+#' @param repo
+update_brick <- function(repo){
+  if (docker_run("git diff --exit-code") != 0) {
+    stop(sprintf("Error: git diff should have no results, check with the owner of %s.",repo))
+  }
+  docker_run('git submodule update --init --recursive')
+  docker_run('git submodule update --recursive --remote')
+}
+
 #' Generate and stores data from a biobrick in your `bblib()`
 #' @param repo the brick you would like to generate
 #' @export
@@ -7,9 +17,14 @@
 #' biobricks::bake("clinvar")
 #' }
 bake <- function(repo){
-  docker_run(
+  update_brick(repo)
+  result <- docker_run(
     "dvc repro",
     wd = sprintf("/biobricks/bricks/%s", repo))
+
+  if (docker_run("git diff --exit-code") != 0) {
+    stop("Warning: Changes to the repo should not happen!")
+  }
 }
 
 #' Finds all the bricks in `bblib()` matching @param brick
