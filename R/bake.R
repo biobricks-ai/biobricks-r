@@ -1,36 +1,39 @@
 #' Update a brick
-#' @param repo
-update_brick <- function(repo){
-  if (docker_run("git diff --exit-code") != 0) {
-    stop(sprintf("Error: git diff should have no results, check with the owner of %s.",repo))
-  }
-  docker_run('git submodule update --init --recursive')
-  docker_run('git submodule update --recursive --remote')
+#' @param brick
+update_brick <- function(brick){
+  bdir <- resolve(brick)
+  # if (system(sprintf("cd %s ; git diff --exit-code",bdir)) != 0) {
+  #   stop(sprintf("Error: git diff should have no results, check with the owner of %s.",brick))
+  # }
+  system(sprintf('cd %s ; git pull origin master',bdir))
 }
 
 #' Generate and stores data from a biobrick in your `bblib()`
-#' @param repo the brick you would like to generate
+#' @param brick the brick you would like to generate
 #' @export
 #' @example 
 #' \dontrun{
 #' biobricks::install("https://github.com/biobricks-ai/clinvar.git")
 #' biobricks::bake("clinvar")
 #' }
-bake <- function(repo){
-  update_brick(repo)
+bake <- function(brick){
+  update_brick(brick)
+  bdir   <- resolve(brick)
+  brel   <- fs::path(bdir) |> fs::path_rel(bblib())
   result <- docker_run(
     "dvc repro",
-    wd = sprintf("/biobricks/bricks/%s", repo))
+    wd = sprintf("/biobricks/bricks/%s", brel))
 
-  if (docker_run("git diff --exit-code") != 0) {
-    stop("Warning: Changes to the repo should not happen!")
-  }
+  # if (system(sprintf("cd %s ; git diff --exit-code",bblib())) != 0) {
+  #   warning("Warning: Changes to the repo should not happen!")
+  # }
+  fs::path(bdir,"data") |> fs::dir_ls(recurse=TRUE)
 }
 
 #' Finds all the bricks in `bblib()` matching @param brick
 #' @param brick the brick you want to find 
 #' @export
-#' @example 
+#' @example
 #' \dontrun{
 #' biobricks::resolve("clinvar")
 #' }

@@ -5,5 +5,6 @@ bblib = function(){
   if(bblib==""){
     stop("no bblib. Set with `Sys.setenv(bblib='???')`. ??? should be a large directory you can access")
   }
-  bblib
+  fs::dir_create(bblib)
+  fs::path_real(bblib)
 }

@@ -2,9 +2,8 @@
 #' @export
 initialize <- function(){
   bdir <- bblib()
-  fs::dir_create(bdir)
   if(!file.exists(fs::path(bdir,".git"))){
-    docker_run("git init")
+    system(sprintf("git init %s",bblib()))
   }
   set_git_config()
   cat(sprintf("initialized biobricks to %s\n",bdir))

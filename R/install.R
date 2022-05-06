@@ -6,10 +6,12 @@ install <- function(url,repo){
   
   if(!grepl("https://.*.git",url)){stop("url must be https://.../owner/repo.git")}
 
-  git_cmd <- sprintf("git submodule add %s %s", url, repo)
-  result  <- docker_run(git_cmd)
+  git_cmd <- sprintf("cd %s ; git submodule add %s %s",bblib(),url,repo)
+  result  <- system(git_cmd)
   if (result == 0) {
-    docker_run(sprintf('git commit --author="biobricks <biobricks@insilica.co>" -m "added %s"', repo))
+    system(sprintf('cd %s ; git commit -m "added %s"', bblib(),repo))
+  } else {
+    stop(sprintf("Could not add brick to git repo %s",bblib()))
   }
 }
 

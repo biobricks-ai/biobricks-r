@@ -4,10 +4,12 @@
 \alias{install}
 \title{Installs a brick from a github repo}
 \usage{
-install(url)
+install(url, repo)
 }
 \arguments{
 \item{url}{a url like https://github.com/biobricks-ai/clinvar.git}
+
+\item{repo}{string with owner/repo eg. "biobricks-ai/clinvar"}
 }
 \description{
 Installs a brick from a github repo
