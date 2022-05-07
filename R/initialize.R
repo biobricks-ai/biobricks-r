@@ -2,6 +2,6 @@
 #' @export
 initialize <- function(){
   if(fs::file_exists(bblib(".git"))){ return("already init") }
-  system(sprintf("git init %s",bblib()))
-  sprintf("initialized biobricks to %s\n",bdir) |> cat()
+  system2("git","init",bblib(".git"))
+  cat("initialized biobricks to",bblib(),"\n")
 }
