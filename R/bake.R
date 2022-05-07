@@ -17,7 +17,6 @@ update_brick <- function(brick){
 #' biobricks::bake("clinvar")
 #' }
 bake <- function(brick){
-  update_brick(brick)
   bdir   <- resolve(brick)
   brel   <- fs::path(bdir) |> fs::path_rel(bblib())
   result <- docker_run(
