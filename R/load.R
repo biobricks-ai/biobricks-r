@@ -1,23 +1,16 @@
 #' Get the files in a brick
 #' @param brick the brick to get files for
 files <- function(brick) {
-  bdir <- resolve(brick)
-  fs::path(bdir,"data") |> fs::dir_ls(recurse=TRUE)
-}
-
-#' attempts to parse a data directory into dplyr lazy tables
-#' @param files an array of files to parse 
-#' @export
-lazy <- function(files){
-  pqt <- files |> purrr::keep(~ fs::path_ext(.) == "parquet")
-  nm  <- fs::path_file(pqt) |> fs::path_ext_remove()
-  purrr::map(pqt,~arrow::read_parquet(.,as_data_frame=F)) |> purrr::set_names(nm)
+  resolve(brick) |> fs::path("data") |> fs::dir_ls(recurse=TRUE)
 }
 
 #' Return a list of tables for a brick
+#' TODO improve loading. How do we handle sqlite? other loading functions?
 #' @param brick
+#' @param load how should files be loaded in R?
 #' @export
-bricktables <- function(brick) {
-  bfiles <- files(brick)
-  lazy(bfiles)
+tbls <- function(brick,load=arrow::open_dataset) {
+  file  <- files(brick)
+  name  <- \(f){ fs::path_ext_remove(fs::path_file(f)) }
+  map(file,load) |> purrr::set_names(name(file))
 }

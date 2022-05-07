@@ -21,6 +21,7 @@ bake <- function(brick){
 #' biobricks::resolve("clinvar")
 #' }
 resolve <- function(brick,rel="/"){
-  dirs <- fs::dir_ls(bblib(),recurse=T,regexp=fs::path(brick,"dvc.yaml"))
-  fs::path_dir(dirs) |> fs::path_rel(start=rel)
+  bdvc <- fs::path(brick,"dvc.yaml")
+  dirs <- fs::dir_ls(bblib(),recurse=T,regexp=bdvc) |> fs::path_dir()
+  if(rel=="/"){ dirs }else{ fs::path_rel(dirs, start=rel) }
 }
