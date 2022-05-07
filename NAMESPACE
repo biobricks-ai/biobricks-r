@@ -2,10 +2,9 @@
 
 export(bake)
 export(bblib)
-export(bricktables)
 export(docker_run)
 export(initialize)
 export(install)
 export(install_gh)
-export(lazy)
 export(resolve)
+export(tbls)

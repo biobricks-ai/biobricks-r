@@ -4,12 +4,12 @@
 \alias{docker_run}
 \title{Run a cmd in the docker container}
 \usage{
-docker_run(cmd, wd = NA)
+docker_run(cmd, wd = bblib())
 }
 \arguments{
 \item{cmd}{The command to run}
 
-\item{wd}{Working directory context to execute cmd}
+\item{wd}{Working directory context (relative to bblib) to execute cmd}
 }
 \description{
 Run a cmd in the docker container

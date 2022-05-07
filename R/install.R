@@ -1,5 +1,5 @@
 #' Update a brick
-#' @param brick
+#' @param brick the brick to update
 update_brick <- function(brick){
   bdir <- resolve(brick)
   # if (system(sprintf("cd %s ; git diff --exit-code",bdir)) != 0) {
@@ -29,6 +29,6 @@ install <- function(url,repo){
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
 install_gh <- function(repo){
-  url      <- sprintf("https://github.com/%s.git", repo)
+  url <- sprintf("https://github.com/%s.git", repo)
   install(url, repo)
 }

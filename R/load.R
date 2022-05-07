@@ -6,11 +6,11 @@ files <- function(brick) {
 
 #' Return a list of tables for a brick
 #' TODO improve loading. How do we handle sqlite? other loading functions?
-#' @param brick
+#' @param brick the name of the brick to import
 #' @param load how should files be loaded in R?
 #' @export
 tbls <- function(brick,load=arrow::open_dataset) {
   file  <- files(brick)
-  name  <- \(f){ fs::path_ext_remove(fs::path_file(f)) }
-  map(file,load) |> purrr::set_names(name(file))
+  name  <- fs::path_file(file) |> fs::path_ext_remove()
+  purrr::map(file,load) |> purrr::set_names(name)
 }

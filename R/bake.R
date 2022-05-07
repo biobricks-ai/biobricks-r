@@ -6,7 +6,7 @@
 #' biobricks::install("https://github.com/biobricks-ai/clinvar.git")
 #' biobricks::bake("clinvar")
 #' }
-bake <- function(brick){
+bake <- function(brick,image="insilica/biobricks:latest"){
   bdir   <- resolve(brick,rel=bblib())
   result <- docker_run("dvc repro",wd=bdir)
   fs::path(bdir,"data") |> fs::dir_ls(recurse=TRUE)

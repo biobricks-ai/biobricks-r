@@ -4,10 +4,12 @@
 \alias{resolve}
 \title{Finds all the bricks in \code{bblib()} matching @param brick}
 \usage{
-resolve(brick)
+resolve(brick, rel = "/")
 }
 \arguments{
 \item{brick}{the brick you want to find}
+
+\item{rel}{resolve relative to what path}
 }
 \description{
 Finds all the bricks in \code{bblib()} matching @param brick
