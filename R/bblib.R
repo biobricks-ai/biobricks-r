@@ -1,10 +1,8 @@
 #' get location for storing bricks
+#' @param path get path relative to bblib
 #' @export 
-bblib = function(){
-  bblib = Sys.getenv("bblib")
-  if(bblib==""){
-    stop("no bblib. Set with `Sys.setenv(bblib='???')`. ??? should be a large directory you can access")
-  }
-  fs::dir_create(bblib)
-  fs::path_real(bblib)
+bblib = function(path){
+  if(Sys.getenv("bblib")==""){ stop("no bblib. Set with `Sys.setenv(bblib='???')`.") }
+  bblib = fs::dir_create(Sys.getenv("bblib"))
+  fs::path_real(bblib) |> fs::path(path)
 }
