@@ -1,3 +1,13 @@
+#' Update a brick
+#' @param brick
+update_brick <- function(brick){
+  bdir <- resolve(brick)
+  # if (system(sprintf("cd %s ; git diff --exit-code",bdir)) != 0) {
+  #   stop(sprintf("Error: git diff should have no results, check with the owner of %s.",brick))
+  # }
+  system(sprintf('cd %s ; git pull origin master',bdir))
+}
+
 #' Installs a brick from a github repo
 #' @param url a url like https://github.com/biobricks-ai/clinvar.git
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"

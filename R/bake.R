@@ -1,13 +1,3 @@
-#' Update a brick
-#' @param brick
-update_brick <- function(brick){
-  bdir <- resolve(brick)
-  # if (system(sprintf("cd %s ; git diff --exit-code",bdir)) != 0) {
-  #   stop(sprintf("Error: git diff should have no results, check with the owner of %s.",brick))
-  # }
-  system(sprintf('cd %s ; git pull origin master',bdir))
-}
-
 #' Generate and stores data from a biobrick in your `bblib()`
 #' @param brick the brick you would like to generate
 #' @export
