@@ -16,7 +16,7 @@ bake <- function(brick,env="docker",image="insilica/biobricks:latest"){
 
   purrr::when(env,
     .=="docker" ~ system(dkr,intern=T),
-    .=="system" ~ system(dvc,intern=T),
+    .=="system" ~ system(sys,intern=T),
     T           ~ stop("`env` must be 'docker' or 'system'"))
 }
 
