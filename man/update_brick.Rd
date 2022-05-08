@@ -2,7 +2,8 @@
 % Please edit documentation in R/install.R
 \name{update_brick}
 \alias{update_brick}
-\title{Update a brick}
+\title{Update a brick
+#TODO #4 add a test for update_brick}
 \usage{
 update_brick(brick)
 }
@@ -11,4 +12,5 @@ update_brick(brick)
 }
 \description{
 Update a brick
+#TODO #4 add a test for update_brick
 }

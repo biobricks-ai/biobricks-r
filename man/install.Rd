@@ -2,7 +2,9 @@
 % Please edit documentation in R/install.R
 \name{install}
 \alias{install}
-\title{Installs a brick from a github repo}
+\title{Installs a brick from a github repo
+#TODO #2 \code{install} needs cleaning. Maybe use brick.install instead?
+#TODO #3 when installing an already installed brick suggest update instead?}
 \usage{
 install(url, repo)
 }
@@ -13,4 +15,6 @@ install(url, repo)
 }
 \description{
 Installs a brick from a github repo
+#TODO #2 \code{install} needs cleaning. Maybe use brick.install instead?
+#TODO #3 when installing an already installed brick suggest update instead?
 }

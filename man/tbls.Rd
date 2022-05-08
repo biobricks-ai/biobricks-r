@@ -3,7 +3,7 @@
 \name{tbls}
 \alias{tbls}
 \title{Return a list of tables for a brick
-TODO improve loading. How do we handle sqlite? other loading functions?}
+TODO #1 improve loading. How do we handle sqlite? other loading functions?}
 \usage{
 tbls(brick, load = arrow::open_dataset)
 }
@@ -14,5 +14,5 @@ tbls(brick, load = arrow::open_dataset)
 }
 \description{
 Return a list of tables for a brick
-TODO improve loading. How do we handle sqlite? other loading functions?
+TODO #1 improve loading. How do we handle sqlite? other loading functions?
 }

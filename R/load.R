@@ -5,7 +5,7 @@ files <- function(brick) {
 }
 
 #' Return a list of tables for a brick
-#' TODO improve loading. How do we handle sqlite? other loading functions?
+#' TODO #1 improve loading. How do we handle sqlite? other loading functions?
 #' @param brick the name of the brick to import
 #' @param load how should files be loaded in R?
 #' @export
