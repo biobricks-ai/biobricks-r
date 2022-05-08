@@ -1,14 +1,15 @@
 #' Update a brick
+#' #TODO #4 add a test for update_brick
 #' @param brick the brick to update
 update_brick <- function(brick){
-  bdir <- resolve(brick)
-  # if (system(sprintf("cd %s ; git diff --exit-code",bdir)) != 0) {
-  #   stop(sprintf("Error: git diff should have no results, check with the owner of %s.",brick))
-  # }
-  system(sprintf('cd %s ; git pull origin master',bdir))
+  stopifnot(initialized())
+  cmd <- sprintf('cd %s ; git pull origin master',resolve(brick))
+  system(cmd)
 }
 
 #' Installs a brick from a github repo
+#' #TODO #2 `install` needs cleaning. Maybe use brick.install instead?
+#' #TODO #3 when installing an already installed brick suggest update instead?
 #' @param url a url like https://github.com/biobricks-ai/clinvar.git
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
