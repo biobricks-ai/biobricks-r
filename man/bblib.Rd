@@ -4,7 +4,10 @@
 \alias{bblib}
 \title{get location for storing bricks}
 \usage{
-bblib()
+bblib(path = "")
+}
+\arguments{
+\item{path}{get path relative to bblib}
 }
 \description{
 get location for storing bricks

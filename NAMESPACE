@@ -2,8 +2,8 @@
 
 export(bake)
 export(bblib)
-export(docker_run)
 export(initialize)
+export(initialized)
 export(install)
 export(install_gh)
 export(resolve)

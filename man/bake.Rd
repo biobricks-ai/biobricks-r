@@ -4,10 +4,14 @@
 \alias{bake}
 \title{Generate and stores data from a biobrick in your \code{bblib()}}
 \usage{
-bake(brick)
+bake(brick, env = "docker", image = "insilica/biobricks:latest")
 }
 \arguments{
 \item{brick}{the brick you would like to generate}
+
+\item{env}{"docker" for using a docker image & "system" for your local machine (must have dvc)}
+
+\item{image}{if "docker" env which docker image to use}
 }
 \description{
 Generate and stores data from a biobrick in your \code{bblib()}

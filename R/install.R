@@ -13,10 +13,10 @@ update_brick <- function(brick){
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
 install <- function(url,repo){
-  
+  stopifnot(initialized())
   if(!grepl("https://.*.git",url)){stop("url must be https://.../owner/repo.git")}
-
-  git_cmd <- sprintf("cd %s ; git submodule add %s %s",bblib(),url,repo)
+  # browser()
+  git_cmd <- sprintf("cd $bblib; git submodule add %s %s",url,repo)
   result  <- system(git_cmd)
   if (result == 0) {
     system(sprintf('cd %s ; git commit -m "added %s"', bblib(),repo))

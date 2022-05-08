@@ -6,6 +6,9 @@
 \usage{
 update_brick(brick)
 }
+\arguments{
+\item{brick}{the brick to update}
+}
 \description{
 Update a brick
 }
