@@ -1,6 +1,7 @@
 #' Update a brick
-#' #TODO #4 add a test for update_brick
+#' #TODO #4 add a test for update.biobricks, make force actually work 
 #' @param brick the brick to update
+#' @param force throw out local changes
 update.biobricks <- function(brick,force=F){
   stopifnot(initialized())
   cmd <- sprintf('cd %s ; git pull origin master',resolve(brick))
