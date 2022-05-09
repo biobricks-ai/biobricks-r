@@ -9,10 +9,10 @@
 #' biobricks::bake("clinvar")
 #' }
 bake <- function(brick,env="docker",image="insilica/biobricks:latest"){
-  bd  <- resolve(brick) |> fs::path_rel(bblib())
-  cmd <- sprintf("dvc repro %s/dvc.yaml",bd)
-  sys <- sprintf("(cd $bblib; %s)",cmd)
-  dkr <- sprintf("docker run --rm -v $bblib:/biobricks/bricks %s %s",image,cmd)
+  bd  <- resolve(brick)
+  cmd <- sprintf("dvc repro dvc.yaml")
+  sys <- sprintf("(cd %s; %s)",bd,cmd)
+  dkr <- sprintf("docker run --rm -v %s:/biobricks/bricks %s %s",bd, image, cmd)
 
   purrr::when(env,
     .=="docker" ~ system(dkr,intern=T),
