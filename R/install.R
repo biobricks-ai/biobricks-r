@@ -7,12 +7,21 @@ update_brick <- function(brick){
   system(cmd)
 }
 
+#' Installs a biobricks-ai maintained brick
+#' @param brick a brick from biobricks-ai, see https://github.com/biobricks-ai/{brick}
+#' @export
+install.biobricks <- function(brick){
+  repo <- sprintf("biobricks-ai/%s",brick)
+  url  <- sprintf("https://github.com/%s.git",repo)
+  install_url(url,repo)
+}
+
 #' Installs a brick from a github repo
-#' TODO better error message when remote doesn't exist
+#' TODO #7 better error message when remote doesn't exist
 #' @param url a url like https://github.com/biobricks-ai/clinvar.git
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
-install <- function(url,repo){
+install_url <- function(url,repo){
   stopifnot(initialized())
   if(!grepl("https://.*.git",url)){ stop("url must be https://.../owner/repo.git") }
 
@@ -31,5 +40,5 @@ install <- function(url,repo){
 #' @export
 install_gh <- function(repo){
   url <- sprintf("https://github.com/%s.git", repo)
-  install(url, repo)
+  install_url(url, repo)
 }
