@@ -8,8 +8,6 @@ update_brick <- function(brick){
 }
 
 #' Installs a brick from a github repo
-#' #TODO #2 `install` needs cleaning. Maybe use brick.install instead?
-#' #TODO #3 when installing an already installed brick suggest update instead?
 #' @param url a url like https://github.com/biobricks-ai/clinvar.git
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
@@ -17,6 +15,9 @@ install <- function(url,repo){
   stopifnot(initialized())
   if(!grepl("https://.*.git",url)){ stop("url must be https://.../owner/repo.git") }
   
+  brick <- resolve(strsplit(repo,"/")[[1]][2])
+  if(!is_empty(brick)){ message(repo,"already installed. Use update"); invisible(return()) }
+
   systemf <- \(...){ system(sprintf(...)) }
   result  <- systemf("cd $bblib; git submodule add %s %s",url,repo)
   if (result != 0) { stop("Could not add brick to git repo $bblib") }
