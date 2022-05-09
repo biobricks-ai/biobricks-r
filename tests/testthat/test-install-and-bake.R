@@ -20,7 +20,7 @@ test_that("install-and-bake-docker", {
 })
 
 test_that("bricks-with-dependencies-work", {
-  # TODO make a test for bricks with dependencies
+  # TODO #8 make a test for bricks with dependencies
   biobricks::install_gh("biobricks-ai/hello-brick")
   biobricks::bake("hello-brick", env="docker")
 })
