@@ -1,7 +1,7 @@
 #' Update a brick
 #' #TODO #4 add a test for update_brick
 #' @param brick the brick to update
-update_brick <- function(brick){
+update.biobricks <- function(brick,force=F){
   stopifnot(initialized())
   cmd <- sprintf('cd %s ; git pull origin master',resolve(brick))
   system(cmd)
