@@ -10,7 +10,7 @@ brickfiles <- function(brick) {
 #' @param load how should files be loaded in R?
 #' @export
 bricktables <- function(brick,load=arrow::open_dataset) {
-  file  <- files(brick)
+  file  <- brickfiles(brick)
   name  <- fs::path_file(file) |> fs::path_ext_remove()
   purrr::map(file,load) |> purrr::set_names(name)
 }

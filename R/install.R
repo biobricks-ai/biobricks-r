@@ -26,8 +26,8 @@ install_url <- function(url,repo){
   stopifnot(initialized())
   if(!grepl("https://.*.git",url)){ stop("url must be https://.../owner/repo.git") }
 
-  brick <- resolve(strsplit(repo,"/")[[1]][2])
-  if(!is_empty(brick)){ message(repo,"already installed. Use update"); invisible(return()) }
+  empty <- resolve(strsplit(repo,"/")[[1]][2]) |> purrr::is_empty()
+  if(!empty){ stop(repo,"already installed. Use update"); }
 
   systemf <- \(...){ system(sprintf(...)) }
   result  <- systemf("cd $bblib; git submodule add %s %s",url,repo)
