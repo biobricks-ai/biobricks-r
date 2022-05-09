@@ -2,9 +2,10 @@
 
 export(bake)
 export(bblib)
+export(bricktables)
 export(initialize)
 export(initialized)
-export(install)
+export(install.biobricks)
 export(install_gh)
+export(install_url)
 export(resolve)
-export(tbls)
