@@ -1,6 +1,6 @@
 #' Get the files in a brick
 #' @param brick the brick to get files for
-files <- function(brick) {
+brickfiles <- function(brick) {
   resolve(brick) |> fs::path("data") |> fs::dir_ls(recurse=TRUE)
 }
 
@@ -9,7 +9,7 @@ files <- function(brick) {
 #' @param brick the name of the brick to import
 #' @param load how should files be loaded in R?
 #' @export
-tbls <- function(brick,load=arrow::open_dataset) {
+bricktables <- function(brick,load=arrow::open_dataset) {
   file  <- files(brick)
   name  <- fs::path_file(file) |> fs::path_ext_remove()
   purrr::map(file,load) |> purrr::set_names(name)
