@@ -8,13 +8,14 @@ update_brick <- function(brick){
 }
 
 #' Installs a brick from a github repo
+#' TODO better error message when remote doesn't exist
 #' @param url a url like https://github.com/biobricks-ai/clinvar.git
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
 install <- function(url,repo){
   stopifnot(initialized())
   if(!grepl("https://.*.git",url)){ stop("url must be https://.../owner/repo.git") }
-  
+
   brick <- resolve(strsplit(repo,"/")[[1]][2])
   if(!is_empty(brick)){ message(repo,"already installed. Use update"); invisible(return()) }
 
