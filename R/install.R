@@ -15,15 +15,13 @@ update_brick <- function(brick){
 #' @export
 install <- function(url,repo){
   stopifnot(initialized())
-  if(!grepl("https://.*.git",url)){stop("url must be https://.../owner/repo.git")}
-  # browser()
-  git_cmd <- sprintf("cd $bblib; git submodule add %s %s",url,repo)
-  result  <- system(git_cmd)
-  if (result == 0) {
-    system(sprintf('cd %s ; git commit -m "added %s"', bblib(),repo))
-  } else {
-    stop(sprintf("Could not add brick to git repo %s",bblib()))
-  }
+  if(!grepl("https://.*.git",url)){ stop("url must be https://.../owner/repo.git") }
+  
+  systemf <- \(...){ system(sprintf(...)) }
+  result  <- systemf("cd $bblib; git submodule add %s %s",url,repo)
+  if (result != 0) { stop("Could not add brick to git repo $bblib") }
+  
+  systemf('cd $bblib ; git commit -m "added %s"',repo)
 }
 
 #' Installs a brick from a github repo
