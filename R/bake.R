@@ -3,18 +3,17 @@
 #' @param env "docker" for using a docker image & "system" for your local machine (must have dvc)
 #' @param image if "docker" env which docker image to use
 #' @export
-#' @example 
+#' @examples
 #' \dontrun{
 #' biobricks::install("https://github.com/biobricks-ai/clinvar.git")
 #' biobricks::bake("clinvar")
 #' }
 bake <- function(brick,env="docker",image="insilica/biobricks:latest"){
   bd  <- resolve(brick) |> fs::path_rel(bblib())
-  sys <- sprintf("(cd $bblib/%s; dvc repro)",bd)
+  sys <- sprintf("(cd %s; dvc repro)",bblib(bd))
 
   dbd <- fs::path("/biobricks/bricks/",bd)
-  dkr <- sprintf("docker run --rm -v $bblib:/biobricks/bricks -w %s %s dvc repro",dbd,image)
-
+  dkr <- sprintf("docker run --rm -v %s:/biobricks/bricks -w %s %s dvc repro",bblib(),dbd,image)
   purrr::when(env,
     .=="docker" ~ system(dkr,intern=T),
     .=="system" ~ system(sys,intern=T),
@@ -24,7 +23,7 @@ bake <- function(brick,env="docker",image="insilica/biobricks:latest"){
 #' Finds all the bricks in `bblib()` matching @param brick
 #' @param brick the brick you want to find 
 #' @export
-#' @example
+#' @examples
 #' \dontrun{
 #' biobricks::resolve("clinvar")
 #' }

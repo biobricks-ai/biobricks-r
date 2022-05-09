@@ -12,3 +12,8 @@ resolve(brick)
 \description{
 Finds all the bricks in \code{bblib()} matching @param brick
 }
+\examples{
+\dontrun{
+biobricks::resolve("clinvar")
+}
+}

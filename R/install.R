@@ -4,8 +4,7 @@
 #' @param force throw out local changes
 update.biobricks <- function(brick,force=F){
   stopifnot(initialized())
-  cmd <- sprintf('cd %s ; git pull origin master',resolve(brick))
-  system(cmd)
+  systemf('cd %s ; git pull origin',resolve(brick))
 }
 
 #' Installs a biobricks-ai maintained brick
@@ -26,14 +25,13 @@ install_url <- function(url,repo){
   stopifnot(initialized())
   if(!grepl("https://.*.git",url)){ stop("url must be https://.../owner/repo.git") }
 
-  empty <- resolve(strsplit(repo,"/")[[1]][2]) |> purrr::is_empty()
-  if(!empty){ stop(repo,"already installed. Use update"); }
+  brick <- resolve(strsplit(repo,"/")[[1]][2])
 
-  systemf <- \(...){ system(sprintf(...)) }
-  result  <- systemf("cd $bblib; git submodule add %s %s",url,repo)
-  if (result != 0) { stop("Could not add brick to git repo $bblib") }
-  
-  systemf('cd $bblib ; git commit -m "added %s"',repo)
+  if(!purrr::is_empty(brick)){ message(repo," already installed. Use update"); invisible(return()) }
+  result  <- systemf("cd %s; git submodule add %s %s",bblib(),url,repo)
+  if (result != 0) { stop(sprintf("Could not add brick to git repo %s",bblib()))}
+
+  systemf('cd %s ; git commit -m "added %s"',bblib(),repo)
 }
 
 #' Installs a brick from a github repo

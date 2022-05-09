@@ -16,3 +16,9 @@ bake(brick, env = "docker", image = "insilica/biobricks:latest")
 \description{
 Generate and stores data from a biobrick in your \code{bblib()}
 }
+\examples{
+\dontrun{
+biobricks::install("https://github.com/biobricks-ai/clinvar.git")
+biobricks::bake("clinvar")
+}
+}
