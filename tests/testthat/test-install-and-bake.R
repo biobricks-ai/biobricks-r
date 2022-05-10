@@ -27,6 +27,25 @@ test_that("install-and-bake-docker", {
   expect_equal(hellotbl,mtcars)
 })
 
+test_that("install-and-remove-and-install works",{
+  local_bblib()
+  install_and_test_hello_brick <- \(){
+    biobricks::install_gh("biobricks-ai/hello-brick")
+    biobricks::bake("hello-brick", env="system")
+    
+    hellotbl <- bricktables("hello-brick")$mtcars |> dplyr::collect()
+    rownames(mtcars) <- 1:32
+    expect_equal(hellotbl,mtcars)
+  }
+
+  install_and_test_hello_brick()
+  
+  biobricks::remove.biobricks("hello-brick")
+  expect(purrr::is_empty(resolve("hello-brick")),"hello-brick was not removed")
+  
+  install_and_test_hello_brick()
+})
+
 # test_that("bricks-with-dependencies-work", {
 #   # TODO #8 make a test for bricks with dependencies
 #   biobricks::install_gh("biobricks-ai/hello-brick")

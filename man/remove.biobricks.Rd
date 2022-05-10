@@ -2,10 +2,17 @@
 % Please edit documentation in R/install.R
 \name{remove.biobricks}
 \alias{remove.biobricks}
-\title{removes biobrick from bblib}
+\title{removes biobrick from bblib
+removes biobrick org if no other bricks under org
+removes git submodule}
 \usage{
-remove.biobricks()
+remove.biobricks(brick)
+}
+\arguments{
+\item{brick}{the brick to remove}
 }
 \description{
 removes biobrick from bblib
+removes biobrick org if no other bricks under org
+removes git submodule
 }

@@ -17,9 +17,22 @@ install.biobricks <- function(brick){
 }
 
 #' removes biobrick from bblib
+#' removes biobrick org if no other bricks under org
+#' removes git submodule 
+#' @param brick the brick to remove
 #' @export
-remove.biobricks <- function(){
-  # TODO #9 add remove.biobricks function
+remove.biobricks <- function(brick){
+  stopifnot(initialized())
+  if(purrr::is_empty(resolve(brick))){ stop("'",brick,"' does not exist") }
+  
+  brickdir <- resolve(brick) 
+  brick    <- fs::path_rel(brickdir,bblib())
+  systemf("(cd $bblib; git rm -f %s)",brick)
+  systemf("(cd $bblib; rm -rf .git/modules/%s)",brick)
+  unlink(brickdir)
+  
+  brickorg <- fs::path_dir(brickdir)
+  if(fs::dir_ls(brickorg) |> purrr::is_empty()){ unlink(brickorg) } 
 }
 
 #' Installs a brick from a github repo
