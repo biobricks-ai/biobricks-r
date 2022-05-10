@@ -19,7 +19,7 @@ install.biobricks <- function(brick){
 #' removes biobrick from bblib
 #' @export
 remove.biobricks <- function(){
-  # TODO add remove.biobricks function
+  # TODO #9 add remove.biobricks function
 }
 
 #' Installs a brick from a github repo

@@ -1,10 +1,17 @@
- test_that("install-and-bake-system", {
-  biobricks::install_gh("biobricks-ai/hello-brick")
-  biobricks::bake("hello-brick", env="system")
-  test_df <- biobricks::bricktables("hello-brick") |>
-  purrr::pluck('mtcars') |> dplyr::collect()
-  row_count <- nrow(test_df)
-  expect_gt(row_count,1)
+local_bblib <- function(env=parent.frame()){
+  bblib <- withr::local_tempdir(.local_envir = env)
+  withr::local_envvar(list(bblib=bblib),.local_envir = env)
+  biobricks::initialize()
+}
+
+test_that("install-and-bake-system", {
+  local_bblib()
+  install_gh("biobricks-ai/hello-brick")
+  bake("hello-brick", env="system")
+  
+  hellotbl <- bricktables("hello-brick")$mtcars |> dplyr::collect()
+  rownames(mtcars) <- 1:32
+  expect_equal(hellotbl,mtcars)
 })
 
 # test_that("install-and-bake-docker", {
@@ -21,4 +28,4 @@
 #   # TODO #8 make a test for bricks with dependencies
 #   biobricks::install_gh("biobricks-ai/hello-brick")
 #   biobricks::bake("hello-brick", env="docker")
-# })
+# })  
