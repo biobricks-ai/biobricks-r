@@ -43,9 +43,12 @@ remove.biobricks <- function(brick){
 install_url <- function(url,repo){
   stopifnot(initialized())
   if(!grepl("https://.*.git",url)){ stop("url must be https://.../owner/repo.git") }
-
-  brick <- resolve(strsplit(repo,"/")[[1]][2]) |> purrr::pluck(1)
-  if(!is.null(brick)){ stop(repo," already installed. Use update") }
+  
+  no_remote  <- systemf("git ls-remote %s",url) != 0
+  if(no_remote){ stop(url," is not a git repo") }
+  
+  no_brick   <- resolve(strsplit(repo,"/")[[1]][2]) |> purrr::pluck(1) |> is.null()
+  if(!no_brick){ stop(repo," already installed. Use update") }
 
   result  <- systemf("cd %s; git submodule add %s %s",bblib(),url,repo)
   if (result != 0) { stop(sprintf("Could not add brick to git repo %s",bblib()))}

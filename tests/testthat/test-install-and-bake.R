@@ -1,9 +1,3 @@
-local_bblib <- function(env=parent.frame()){
-  bblib <- withr::local_tempdir(.local_envir = env)
-  withr::local_envvar(list(bblib=bblib),.local_envir = env)
-  biobricks::initialize()
-}
-
 test_that("install-and-bake-system", {
   local_bblib()
   biobricks::install_gh("biobricks-ai/hello-brick")
@@ -60,6 +54,14 @@ test_that("install-hello-1.0-and-update",{
   update.biobricks("hello-brick")
   bake("hello-brick")
   expect_equal(brickfiles("hello-brick") |> fs::path_file(),c("mtcars.parquet"))
+})
+
+test_that("graceful error from missing remote",{
+  local_bblib()
+  safe.install <- purrr::safely(install.biobricks)("k@_-.")
+  expect_equal(
+    safe.install$error$message,
+    "https://github.com/biobricks-ai/k@_-..git is not a git repo")
 })
 
 # test_that("bricks-with-dependencies-work", {
