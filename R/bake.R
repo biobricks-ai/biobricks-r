@@ -9,6 +9,7 @@
 #' biobricks::bake("clinvar")
 #' }
 bake <- function(brick,env="docker",image="insilica/biobricks:latest"){
+  stopifnot(initialized())
   bd  <- resolve(brick) |> fs::path_rel(bblib())
   sys <- sprintf("(cd %s; dvc repro)",bblib(bd))
 
