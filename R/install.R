@@ -36,7 +36,6 @@ remove.biobricks <- function(brick){
 }
 
 #' Installs a brick from a github repo
-#' TODO #7 better error message when remote doesn't exist
 #' @param url a url like https://github.com/biobricks-ai/clinvar.git
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export

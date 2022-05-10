@@ -1,0 +1,10 @@
+# stages:
+#   read-hello-brick: 
+#     cmd: R/read-hello.R
+#     deps:
+#     - remote://biobricks/biobricks-ai/hello-brick/data/hello.txt
+#     outs:
+#     - data/mtcars2.csv
+
+# set a github location in deps
+# https://github.com/biobricks-ai/hello-brick/data

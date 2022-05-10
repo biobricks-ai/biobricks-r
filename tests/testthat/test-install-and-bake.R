@@ -9,7 +9,7 @@ test_that("install-and-bake-system", {
 })
 
 test_that("install-and-bake-docker", {
-  has_docker = suppressWarnings(system("docker"))
+  has_docker = suppressWarnings(system("docker")) # #TODO #10 use skip_on_ci
   testthat::skip_if(has_docker!=0) # need docker for test
 
   local_bblib() 
