@@ -1,18 +1,16 @@
 test_that("install-and-bake-system", {
   local_bblib()
+  set_git_config()
   biobricks::install_gh("biobricks-ai/hello-brick")
   biobricks::bake("hello-brick", env="system")
-  
   hellotbl <- bricktables("hello-brick")$mtcars |> dplyr::collect()
   rownames(mtcars) <- 1:32
   expect_equal(hellotbl,mtcars)
 })
 
 test_that("install-and-bake-docker", {
-  has_docker = suppressWarnings(system("docker")) # #TODO #10 use skip_on_ci
-  testthat::skip_if(has_docker!=0) # need docker for test
-
-  local_bblib() 
+  testthat::skip_on_ci()
+  local_bblib()
   biobricks::install_gh("biobricks-ai/hello-brick")
   biobricks::bake("hello-brick", env="docker")
 
@@ -23,6 +21,7 @@ test_that("install-and-bake-docker", {
 
 test_that("install-and-remove-and-install works",{
   local_bblib()
+  set_git_config()
   install_and_test_hello_brick <- \(){
     biobricks::install_gh("biobricks-ai/hello-brick")
     biobricks::bake("hello-brick", env="system")
@@ -42,6 +41,7 @@ test_that("install-and-remove-and-install works",{
 
 test_that("install-hello-1.0-and-update",{
   local_bblib()
+  skip_on_ci()
   install.biobricks("hello-brick")
   brick <- resolve("hello-brick")
   
@@ -68,4 +68,4 @@ test_that("graceful error from missing remote",{
 #   # TODO #8 make a test for bricks with dependencies
 #   biobricks::install_gh("biobricks-ai/hello-brick")
 #   biobricks::bake("hello-brick", env="docker")
-# })  
+# })
