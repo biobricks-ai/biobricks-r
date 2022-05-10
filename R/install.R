@@ -16,6 +16,12 @@ install.biobricks <- function(brick){
   install_url(url,repo)
 }
 
+#' removes biobrick from bblib
+#' @export
+remove.biobricks <- function(){
+  # TODO add remove.biobricks function
+}
+
 #' Installs a brick from a github repo
 #' TODO #7 better error message when remote doesn't exist
 #' @param url a url like https://github.com/biobricks-ai/clinvar.git
@@ -25,9 +31,9 @@ install_url <- function(url,repo){
   stopifnot(initialized())
   if(!grepl("https://.*.git",url)){ stop("url must be https://.../owner/repo.git") }
 
-  brick <- resolve(strsplit(repo,"/")[[1]][2])
+  brick <- resolve(strsplit(repo,"/")[[1]][2]) |> purrr::pluck(1)
+  if(!is.null(brick)){ stop(repo," already installed. Use update") }
 
-  if(!purrr::is_empty(brick)){ message(repo," already installed. Use update"); invisible(return()) }
   result  <- systemf("cd %s; git submodule add %s %s",bblib(),url,repo)
   if (result != 0) { stop(sprintf("Could not add brick to git repo %s",bblib()))}
 
