@@ -46,6 +46,22 @@ test_that("install-and-remove-and-install works",{
   install_and_test_hello_brick()
 })
 
+test_that("install-hello-1.0-and-update",{
+  local_bblib()
+  install.biobricks("hello-brick")
+  brick <- resolve("hello-brick")
+  
+  # RESET to 1.0, bake, and look for hello.txt
+  systemf("(cd %s; git reset --hard 1.0)",brick)
+  bake("hello-brick")
+  expect_equal(brickfiles("hello-brick") |> fs::path_file(),c("hello.txt"))
+
+  # update hello-brick, check that it has mtcars.parquet
+  update.biobricks("hello-brick")
+  bake("hello-brick")
+  expect_equal(brickfiles("hello-brick") |> fs::path_file(),c("mtcars.parquet"))
+})
+
 # test_that("bricks-with-dependencies-work", {
 #   # TODO #8 make a test for bricks with dependencies
 #   biobricks::install_gh("biobricks-ai/hello-brick")
