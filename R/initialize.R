@@ -7,6 +7,7 @@ initialized <- function(){
 #' create the git and dvc repos for the biobricks library
 #' @export
 initialize <- function(){
-  if(!file.exists(bblib(".git"))){ systemf("(cd %s; git init)",bblib()) }
-  cat("initialized biobricks to",bblib(),"\n")
+  systemf("cd %s; git init",bblib())
+  systemf("cd %s; mkdir cache",bblib())
+  message("initialized biobricks to",bblib())
 }
