@@ -12,7 +12,7 @@ update.biobricks <- function(brick,force=F){
 #' @export
 install.biobricks <- function(brick){
   repo <- sprintf("biobricks-ai/%s",brick)
-  url  <- sprintf("https://github.com/%s.git",repo)
+  url  <- sprintf("https://github.com/%s",repo)
   install_url(url,repo)
 }
 
@@ -40,18 +40,18 @@ remove.biobricks <- function(brick){
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
 install_url <- function(url,repo){
-  stopifnot(initialized())
-  if(!grepl("https://.*.git",url)){ stop("url must be https://.../owner/repo.git") }
-  
-  no_remote  <- systemf("git ls-remote %s",url) != 0
-  if(no_remote){ stop(url," is not a git repo") }
-  
-  no_brick   <- resolve(strsplit(repo,"/")[[1]][2]) |> purrr::pluck(1) |> is.null()
-  if(!no_brick){ stop(repo," already installed. Use update") }
+  stopifnot(initialized(), url_is_git_repo(url), purrr::is_empty(resolve(repo)))
 
+  # add submodule
   result  <- systemf("cd %s; git submodule add %s %s",bblib(),url,repo)
   if (result != 0) { stop(sprintf("Could not add brick to git repo %s",bblib()))}
+  
+  # config dvc cache
+  systemf('cd %s; dvc cache dir $bblib/cache',    bblib(repo))
+  systemf('cd %s; dvc config cache.shared group', bblib(repo))
+  systemf('cd %s; dvc config cache.type symlink', bblib(repo))
 
+  # commit submodule # TODO is this necessary?
   systemf('cd %s ; git commit -m "added %s"',bblib(),repo)
 }
 
@@ -59,6 +59,5 @@ install_url <- function(url,repo){
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
 install_gh <- function(repo){
-  url <- sprintf("https://github.com/%s.git", repo)
-  install_url(url, repo)
+  install_url(sprintf("https://github.com/%s", repo))
 }
