@@ -21,6 +21,14 @@ bake <- function(brick,env="docker",image="insilica/biobricks:latest"){
     T           ~ stop("`env` must be 'docker' or 'system'"))
 }
 
+#' pull data for a brick from biobricks.ai
+#' @export
+brickpull <- function(brick){
+  stopifnot(initialized())
+  if(purrr::is_empty(resolve(brick))){ stop("missing brick ",brick, " try install.biobricks?")}
+  systemf("cd %s; dvc pull",resolve(brick))
+}
+
 #' Finds all the bricks in `bblib()` matching @param brick
 #' @param brick the brick you want to find 
 #' @export
