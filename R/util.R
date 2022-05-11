@@ -4,6 +4,11 @@ systemf <- function(...,intern=FALSE,ignore.stdout=TRUE,ignore.stderr=TRUE){
 }
 
 #' @keywords internal
+url_is_git_repo <- function(url){
+  systemf("git ls-remote %s",url) == 0
+}
+
+#' @keywords internal
 local_bblib <- function(env=parent.frame()){
   bblib <- withr::local_tempdir(.local_envir = env)
   withr::local_envvar(list(bblib=bblib),.local_envir = env)
