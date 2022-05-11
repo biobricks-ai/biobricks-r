@@ -1,5 +1,6 @@
 #' Get the files in a brick
 #' @param brick the brick to get files for
+#' @export
 brickfiles <- function(brick) {
   resolve(brick) |> fs::path("data") |> fs::dir_ls(recurse=TRUE)
 }
