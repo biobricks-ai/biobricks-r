@@ -1,7 +1,7 @@
 #' Update a brick
 #' @param brick the brick to update
-#' @param force throw out local changes
-update.biobricks <- function(brick,force=F){
+#' @export
+update_biobricks <- function(brick){
   c(check_init(), check_brick_exists(brick))
   systemf('cd %s ; git pull origin',brick_path(brick))
 }
@@ -9,7 +9,7 @@ update.biobricks <- function(brick,force=F){
 #' Installs a biobricks-ai maintained brick
 #' @param brick a brick from biobricks-ai, see https://github.com/biobricks-ai/{brick}
 #' @export
-install.biobricks <- function(brick){
+install_biobricks <- function(brick){
   repo <- sprintf("biobricks-ai/%s",brick)
   url  <- sprintf("https://github.com/%s",repo)
   install_url(url,repo)
@@ -20,7 +20,7 @@ install.biobricks <- function(brick){
 #' removes git submodule 
 #' @param brick the brick to remove
 #' @export
-remove.biobricks <- function(brick){
+remove_biobricks <- function(brick){
   c(check_init(), check_brick_exists(brick))
   
   brickdir <- brick_path(brick) 

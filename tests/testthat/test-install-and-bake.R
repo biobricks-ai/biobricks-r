@@ -32,7 +32,7 @@ test_that("install-and-remove-and-install works",{
 
   install_and_test_hello_brick()
   
-  biobricks::remove.biobricks("hello-brick")
+  biobricks::remove_biobricks("hello-brick")
   expect(purrr::is_empty(brick_path("hello-brick")),"hello-brick was not removed")
   
   install_and_test_hello_brick()
@@ -41,7 +41,7 @@ test_that("install-and-remove-and-install works",{
 test_that("install-hello-1.0-and-update",{
   local_bblib()
   skip_on_ci()
-  install.biobricks("hello-brick")
+  install_biobricks("hello-brick")
   brick <- brick_path("hello-brick")
   
   # RESET to 1.0, brick_repro, and look for hello.txt
@@ -50,14 +50,14 @@ test_that("install-hello-1.0-and-update",{
   expect_equal(brick_ls("hello-brick") |> fs::path_file(),c("hello.txt"))
 
   # update hello-brick, check that it has mtcars.parquet
-  update.biobricks("hello-brick")
+  update_biobricks("hello-brick")
   brick_repro("hello-brick")
   expect_equal(brick_ls("hello-brick") |> fs::path_file(),c("mtcars.parquet"))
 })
 
 test_that("graceful error from missing remote",{
   local_bblib()
-  safe.install <- purrr::safely(install.biobricks)("k@_-.")
+  safe.install <- purrr::safely(install_biobricks)("k@_-.")
   expect_equal(
     safe.install$error$message,
     "https://github.com/biobricks-ai/k@_-. is not a git repo")
