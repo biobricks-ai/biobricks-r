@@ -3,7 +3,7 @@
 #' @param force throw out local changes
 update.biobricks <- function(brick,force=F){
   c(check_init(), check_brick_exists(brick))
-  systemf('cd %s ; git pull origin',resolve(brick))
+  systemf('cd %s ; git pull origin',brick_path(brick))
 }
 
 #' Installs a biobricks-ai maintained brick
@@ -23,7 +23,7 @@ install.biobricks <- function(brick){
 remove.biobricks <- function(brick){
   c(check_init(), check_brick_exists(brick))
   
-  brickdir <- resolve(brick) 
+  brickdir <- brick_path(brick) 
   brick    <- fs::path_rel(brickdir,bblib())
   systemf("(cd $bblib; git rm -f %s)",brick)
   systemf("(cd $bblib; rm -rf .git/modules/%s)",brick)

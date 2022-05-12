@@ -1,4 +1,5 @@
 #' Generate and stores data from a biobrick in your `bblib()`
+#' This is a wrapper for dvc repro.
 #' @param brick the brick you would like to generate
 #' @param env "docker" for using a docker image & "system" for your local machine (must have dvc)
 #' @param image if "docker" env which docker image to use
@@ -6,11 +7,11 @@
 #' @examples
 #' \dontrun{
 #' biobricks::install("https://github.com/biobricks-ai/clinvar.git")
-#' biobricks::bake("clinvar")
+#' biobricks::brick_repro("clinvar")
 #' }
-bake <- function(brick,env="docker",image="insilica/biobricks:latest"){
+brick_repro <- function(brick,env="docker",image="insilica/biobricks:latest"){
   check_init()
-  brickdir <- resolve(brick)
+  brickdir <- brick_path(brick)
   sys      <- sprintf("(cd %s; dvc repro)",brickdir)
 
   mnt   <- sprintf("-v %s:%s -w %s", bblib(), bblib(), brickdir)
@@ -29,9 +30,9 @@ bake <- function(brick,env="docker",image="insilica/biobricks:latest"){
 #' \dontrun{
 #' biobricks::brickpull("clinvar")
 #' }
-brickpull <- function(brick){
+brick_pull <- function(brick){
   c(check_init(),check_brick_exists(brick))
-  systemf("cd %s; dvc pull",resolve(brick))
+  systemf("cd %s; dvc pull",brick_path(brick))
 }
 
 #' Finds all the bricks in `bblib()` matching @param brick
@@ -41,7 +42,7 @@ brickpull <- function(brick){
 #' \dontrun{
 #' biobricks::resolve("clinvar")
 #' }
-resolve <- function(brick){
+brick_path <- function(brick){
   bdvc <- fs::path(brick,"dvc.yaml")
   fs::dir_ls(bblib(),recurse=T,regexp=bdvc) |> fs::path_dir()
 }

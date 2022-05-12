@@ -2,8 +2,7 @@
 % Please edit documentation in R/install.R
 \name{update.biobricks}
 \alias{update.biobricks}
-\title{Update a brick
-#TODO #4 add a test for update.biobricks, make force actually work}
+\title{Update a brick}
 \usage{
 \method{update}{biobricks}(brick, force = F)
 }
@@ -14,5 +13,4 @@
 }
 \description{
 Update a brick
-#TODO #4 add a test for update.biobricks, make force actually work
 }

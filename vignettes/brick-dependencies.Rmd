@@ -47,7 +47,7 @@ bbsh("cat biobricks-ai/hello-brick/.dvc/config",print=T)
 ## Pull hello-brick
 Pulling hello-brick  
 ```{r pull.hello, class.output="code"}
-brickpull("hello-brick")
+brick_pull("hello-brick")
 bbsh("tree biobricks-ai/hello-brick/data",print=T)
 ```
 
