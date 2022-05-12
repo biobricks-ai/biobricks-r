@@ -45,11 +45,10 @@ install_url <- function(url,repo){
   if (result != 0) { stop(sprintf("Could not add brick to git repo %s",bblib()))}
   
   # config dvc cache
-  systemf('cd %s; dvc cache dir ../../cache',    bblib(repo))
+  systemf('cd %s; dvc cache dir ../../cache',     bblib(repo))
   systemf('cd %s; dvc config cache.shared group', bblib(repo))
   systemf('cd %s; dvc config cache.type symlink', bblib(repo))
 
-  # commit submodule # TODO is this necessary?
   systemf('cd %s ; git commit -m "added %s"',bblib(),repo)
 }
 
