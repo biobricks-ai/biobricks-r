@@ -9,9 +9,10 @@ biobricks::initialize()            # init the biobricks library
 
 Load tables from [ncbi.nlm.nih.gov/clinvar](https://www.ncbi.nlm.nih.gov/clinvar/)
 ```R
-biobricks::install("https://github.com/biobricks-ai/clinvar.git")
-cv <- biobricks::brick_repro("clinvar")
-ds <- biobricks::lazy(cv)
+library(biobricks)
+install.biobricks("clinvar")
+brick_repro("clinvar")
+brick_load_arrow("clinvar)
 ```
 
 View the table names:  
