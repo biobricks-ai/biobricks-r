@@ -61,11 +61,5 @@ test_that("graceful error from missing remote",{
   safe.install <- purrr::safely(install.biobricks)("k@_-.")
   expect_equal(
     safe.install$error$message,
-    "https://github.com/biobricks-ai/k@_-..git is not a git repo")
+    "https://github.com/biobricks-ai/k@_-. is not a git repo")
 })
-
-# test_that("bricks-with-dependencies-work", {
-#   # TODO #8 make a test for bricks with dependencies
-#   biobricks::install_gh("biobricks-ai/hello-brick")
-#   biobricks::bake("hello-brick", env="docker")
-# })

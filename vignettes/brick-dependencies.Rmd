@@ -14,6 +14,7 @@ vignette: >
 }
 ```
 ```{r helpers, echo=F}
+library(biobricks)
 build.sh <- \(wd){
   \(txt,args=c(),print=F,...){ # create shell with workdir
     cmd <- do.call("sprintf",as.list(c(txt,args)))

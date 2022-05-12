@@ -2,8 +2,7 @@
 % Please edit documentation in R/install.R
 \name{install_url}
 \alias{install_url}
-\title{Installs a brick from a github repo
-TODO #7 better error message when remote doesn't exist}
+\title{Installs a brick from a github repo}
 \usage{
 install_url(url, repo)
 }
@@ -14,5 +13,4 @@ install_url(url, repo)
 }
 \description{
 Installs a brick from a github repo
-TODO #7 better error message when remote doesn't exist
 }

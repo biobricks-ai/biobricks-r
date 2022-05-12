@@ -9,12 +9,13 @@
 #' biobricks::bake("clinvar")
 #' }
 bake <- function(brick,env="docker",image="insilica/biobricks:latest"){
-  stopifnot(initialized())
-  bd  <- resolve(brick) |> fs::path_rel(bblib())
-  sys <- sprintf("(cd %s; dvc repro)",bblib(bd))
+  check_init()
+  brickdir <- resolve(brick)
+  sys      <- sprintf("(cd %s; dvc repro)",brickdir)
 
-  dbd <- fs::path("/biobricks/bricks/",bd)
-  dkr <- sprintf("docker run --rm -v %s:/biobricks/bricks -w %s %s dvc repro",bblib(),dbd,image)
+  mnt   <- sprintf("-v %s:%s -w %s", bblib(), bblib(), brickdir)
+  dkr   <- sprintf("docker run --rm %s %s dvc repro", mnt, image)
+  
   purrr::when(env,
     .=="docker" ~ system(dkr,intern=T),
     .=="system" ~ system(sys,intern=T),
@@ -22,10 +23,14 @@ bake <- function(brick,env="docker",image="insilica/biobricks:latest"){
 }
 
 #' pull data for a brick from biobricks.ai
+#' @param brick pull data from this brick
 #' @export
+#' @examples
+#' \dontrun{
+#' biobricks::brickpull("clinvar")
+#' }
 brickpull <- function(brick){
-  stopifnot(initialized())
-  if(purrr::is_empty(resolve(brick))){ stop("missing brick ",brick, " try install.biobricks?")}
+  c(check_init(),check_brick_exists(brick))
   systemf("cd %s; dvc pull",resolve(brick))
 }
 

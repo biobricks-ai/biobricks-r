@@ -40,14 +40,14 @@ remove.biobricks <- function(brick){
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
 install_url <- function(url,repo){
-  stopifnot(initialized(), url_is_git_repo(url), purrr::is_empty(resolve(repo)))
+  c(check_is_git_repo(url), check_empty_repo(repo), check_init())
 
   # add submodule
   result  <- systemf("cd %s; git submodule add %s %s",bblib(),url,repo)
   if (result != 0) { stop(sprintf("Could not add brick to git repo %s",bblib()))}
   
   # config dvc cache
-  systemf('cd %s; dvc cache dir $bblib/cache',    bblib(repo))
+  systemf('cd %s; dvc cache dir ../../cache',    bblib(repo))
   systemf('cd %s; dvc config cache.shared group', bblib(repo))
   systemf('cd %s; dvc config cache.type symlink', bblib(repo))
 
@@ -59,5 +59,5 @@ install_url <- function(url,repo){
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
 install_gh <- function(repo){
-  install_url(sprintf("https://github.com/%s", repo))
+  install_url(sprintf("https://github.com/%s", repo), repo)
 }
