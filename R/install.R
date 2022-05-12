@@ -1,9 +1,8 @@
 #' Update a brick
-#' #TODO #4 add a test for update.biobricks, make force actually work 
 #' @param brick the brick to update
 #' @param force throw out local changes
 update.biobricks <- function(brick,force=F){
-  stopifnot(initialized())
+  c(check_init(), check_brick_exists(brick))
   systemf('cd %s ; git pull origin',resolve(brick))
 }
 
@@ -22,8 +21,7 @@ install.biobricks <- function(brick){
 #' @param brick the brick to remove
 #' @export
 remove.biobricks <- function(brick){
-  stopifnot(initialized())
-  if(purrr::is_empty(resolve(brick))){ stop("'",brick,"' does not exist") }
+  c(check_init(), check_brick_exists(brick))
   
   brickdir <- resolve(brick) 
   brick    <- fs::path_rel(brickdir,bblib())
