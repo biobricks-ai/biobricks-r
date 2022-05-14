@@ -1,25 +1,23 @@
 #' Get the files in a brick
 #' @param brick the brick to get files for
+#' @param .p a predicate to filter returned files (must return true on file path)
+#' @param rel a predicate to filter returned files (must return true on file path)
 #' @importFrom purrr set_names map_if is_empty
 #' @export
-brick_ls <- \(brick) { brick_path(brick,"data") |> fs::dir_ls(recurse = T) }
+brick_ls <- \(brick,.p=NULL,rel) { 
+  check_brick_has_data(brick)
+  res <- brick_path(brick,"data") |> fs::dir_ls(recurse = T)
+  if(is.null(.p)){ res }else{ purrr::keep(res,.p) }
+}
 
-#' creates a nested list of values by path # TODO replace this with something simpler
+#' creates a nested list of values by path
 #' @param x a set of values to make into nested list
 #' @param path filesytem paths to nest
 #' @importFrom purrr map
 #' @keyword internal
-fs_list <- \(x,path){
-  splits <- fs::path_split(path) |> purrr::transpose() |> map(as.character) 
-  rsplit <- function(v,splits){
-    if(length(splits) == 0){ return(v[[1]]) }
-    vsplit <- split(v,splits[[1]])
-    isplit <- split(seq_along(v), splits[[1]])
-    nsplit <- map(isplit, \(i){ map(splits[-1], ~ .[i]) })
-    purrr::map2(vsplit, nsplit, ~ rsplit(.x,.y))
-  }
-
-  rsplit(x,splits)
+fs_recurse <- \(x,path=names(x)){
+  if(all(fs::path_dir(path)==".")){ return(set_names(x,path)) }
+  split(x, fs::path_dir(path)) |> purrr::imap( ~ fs_recurse(.x,fs::path_rel(names(.x),.y)))
 }
 
 #' Return a list of tables for a brick
@@ -30,9 +28,9 @@ fs_list <- \(x,path){
 #' @param env some loading functions use .env to manage connections
 #' @export
 brick_load <- function(brick, .p, .l, recurse=T, env=parent.frame()) {
-  v <- brick_ls(brick) |> purrr::keep(.p) |> purrr::map(.l) 
-  v <- purrr::set_names(v,~ fs::path_rel(.,brick_path(brick,"data")))
-  if(recurse){ fs_list(v,names(v)) }else{ v }
+  rp <- brick_ls(brick,.p) |> fs::path_rel(brick_path(brick,"data"))
+  v  <- brick_ls(brick,.p) |> purrr::map(.l) |> purrr::set_names(rp)
+  if(recurse){ fs_recurse(v,rp) }else{ v }
 }
 
 #' A helper to use brick_load with the arrow package

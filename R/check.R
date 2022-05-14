@@ -10,7 +10,13 @@ check_empty_repo <- \(repo){
 
 check_brick_exists <- \(brick){
   if(!purrr::is_empty(brick_path(brick))){ return(T) }
-  stop("missing brick ", brick, " try install.biobricks?")
+  stop("missing brick ", brick, " try `brick_install(brick)`")
+}
+
+check_brick_has_data <- \(brick){
+  bp <- brick_path(brick,"data")
+  if(dir.exists(bp) && !purrr::is_empty(fs::dir_ls(bp))){ return(T) }
+  stop("no data for ", brick, " do you need to `brick_pull` or `brick_repro`?")
 }
 
 check_init <- \(){
