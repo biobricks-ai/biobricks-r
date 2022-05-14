@@ -1,6 +1,6 @@
 # biobricks
 <!-- badges: start -->
-[![codecov](https://codecov.io/gh/sysrev/rsr/branch/master/graph/badge.svg?token=PPYGBLSWV3)](https://codecov.io/gh/sysrev/rsr)
+[![codecov](https://codecov.io/gh/biobricks-ai/biobricks-r/branch/main/graph/badge.svg?token=J041MF0JKG)](https://codecov.io/gh/biobricks-ai/biobricks-r)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 R package for biobricks
