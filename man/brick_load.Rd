@@ -4,7 +4,7 @@
 \alias{brick_load}
 \title{Return a list of tables for a brick}
 \usage{
-brick_load(brick, .p, .l, env = parent.frame())
+brick_load(brick, .p, .l, recurse = T, env = parent.frame())
 }
 \arguments{
 \item{brick}{the name of the brick to load}
@@ -12,6 +12,8 @@ brick_load(brick, .p, .l, env = parent.frame())
 \item{.p}{which files should be loaded this way?}
 
 \item{.l}{which loading function should be used?}
+
+\item{recurse}{return a nested list of values}
 
 \item{env}{some loading functions use .env to manage connections}
 }

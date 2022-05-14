@@ -4,10 +4,12 @@
 \alias{brick_path}
 \title{Finds all the bricks in \code{bblib()} matching @param brick}
 \usage{
-brick_path(brick)
+brick_path(brick, path = "")
 }
 \arguments{
 \item{brick}{the brick you want to find}
+
+\item{path}{retrieve path relative to the brick directory}
 }
 \description{
 Finds all the bricks in \code{bblib()} matching @param brick

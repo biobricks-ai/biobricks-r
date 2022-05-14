@@ -4,12 +4,10 @@
 \alias{brick_ls}
 \title{Get the files in a brick}
 \usage{
-brick_ls(brick, regex)
+brick_ls(brick)
 }
 \arguments{
 \item{brick}{the brick to get files for}
-
-\item{regex}{the brick to get files for}
 }
 \description{
 Get the files in a brick

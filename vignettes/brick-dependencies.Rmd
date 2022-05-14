@@ -35,7 +35,7 @@ bbsh("tree -a -L 1", print=T)
 
 ## Install hello-brick
 ```{r install, class.output="code"}
-install_biobricks("hello-brick")
+brick_install("hello-brick")
 bbsh("tree -a --filelimit 4",print=T)
 ```
 

@@ -4,15 +4,10 @@
 \alias{brick_load_arrow}
 \title{A helper to use brick_load with the arrow package}
 \usage{
-brick_load_arrow(
-  brick,
-  .p = partial(grepl, pat = "(parquet|arrow|ipc|feather|csv|tsv|text)$", i = T)
-)
+brick_load_arrow(brick)
 }
 \arguments{
 \item{brick}{the name of the brick to load}
-
-\item{.p}{default to grepl on tabular names like parquet, arrow, csv, tsv, etc.}
 }
 \description{
 A helper to use brick_load with the arrow package
