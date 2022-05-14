@@ -32,7 +32,8 @@ brick_repro <- function(brick,env="docker",image="insilica/biobricks:latest"){
 #' }
 brick_pull <- function(brick){
   c(check_init(),check_brick_exists(brick))
-  systemf("cd %s; dvc pull",brick_path(brick))
+  cmd <- sprintf("cd %s; dvc pull",brick_path(brick))
+  system(cmd)
 }
 
 #' Finds all the bricks in `bblib()` matching @param brick
