@@ -1,10 +1,4 @@
-#' is biobricks initialized?
-#' @export
-initialized <- function(){ 
-  all(file.exists(bblib(".git")), bblib()!="")
-}
-
-#' create the git and dvc repos for the biobricks library
+#' create the git repo for the biobricks library
 #' @export
 initialize <- function(){
   check_has_bblib()
