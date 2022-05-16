@@ -2,10 +2,10 @@
 % Please edit documentation in R/initialize.R
 \name{initialize}
 \alias{initialize}
-\title{create the git and dvc repos for the biobricks library}
+\title{create the git repo for the biobricks library}
 \usage{
 initialize()
 }
 \description{
-create the git and dvc repos for the biobricks library
+create the git repo for the biobricks library
 }
