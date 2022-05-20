@@ -1,6 +1,6 @@
 test_that("install-and-brick_repro-system", {
   local_bblib()
-  biobricks::brick_install_gh("biobricks-ai/hello-brick")
+  biobricks::install_brick_gh("biobricks-ai/hello-brick")
   biobricks::brick_repro("hello-brick", env="system")
   hellotbl <- brick_load_arrow("hello-brick")$mtcars.parquet |> dplyr::collect()
   rownames(mtcars) <- 1:32
@@ -10,7 +10,7 @@ test_that("install-and-brick_repro-system", {
 test_that("install-and-brick_repro-docker", {
   testthat::skip_on_ci()
   local_bblib()
-  biobricks::brick_install_gh("biobricks-ai/hello-brick")
+  biobricks::install_brick_gh("biobricks-ai/hello-brick")
   biobricks::brick_repro("hello-brick", env="docker")
 
   hellotbl <- brick_load_arrow("hello-brick")$mtcars |> dplyr::collect()
@@ -22,7 +22,7 @@ test_that("install-and-remove-and-install works",{
   local_bblib()
   set_git_config()
   install_and_test_hello_brick <- \(){
-    biobricks::brick_install_gh("biobricks-ai/hello-brick")
+    biobricks::install_brick_gh("biobricks-ai/hello-brick")
     biobricks::brick_repro("hello-brick", env="system")
     
     hellotbl <- brick_load_arrow("hello-brick")$mtcars |> dplyr::collect()
@@ -41,7 +41,7 @@ test_that("install-and-remove-and-install works",{
 test_that("install-hello-1.0-and-update",{
   local_bblib()
   skip_on_ci()
-  brick_install("hello-brick")
+  install_brick("hello-brick")
   brick <- brick_path("hello-brick")
   
   # RESET to 1.0, brick_repro, and look for hello.txt
@@ -50,14 +50,14 @@ test_that("install-hello-1.0-and-update",{
   expect_equal(brick_ls("hello-brick") |> fs::path_file(),c("hello.txt"))
 
   # update hello-brick, check that it has mtcars.parquet
-  brick_update("hello-brick")
+  update_brick("hello-brick")
   brick_repro("hello-brick")
   expect_equal(brick_ls("hello-brick") |> fs::path_file(),c("mtcars.parquet"))
 })
 
 test_that("graceful error from missing remote",{
   local_bblib()
-  safe.install <- purrr::safely(brick_install)("k@_-.")
+  safe.install <- purrr::safely(install_brick)("k@_-.")
   expect_equal(
     safe.install$error$message,
     "https://github.com/biobricks-ai/k@_-. is not a git repo")

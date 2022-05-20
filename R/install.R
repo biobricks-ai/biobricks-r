@@ -1,7 +1,7 @@
 #' Update a brick
 #' @param brick the brick to update
 #' @export
-brick_update <- function(brick){
+update_brick <- function(brick){
   c(check_init(), check_brick_exists(brick))
   systemf('cd %s ; git pull origin',brick_path(brick))
 }
@@ -9,10 +9,10 @@ brick_update <- function(brick){
 #' Installs a biobricks-ai maintained brick
 #' @param brick a brick from biobricks-ai, see https://github.com/biobricks-ai/{brick}
 #' @export
-brick_install <- function(brick){
+install_brick <- function(brick){
   repo <- sprintf("biobricks-ai/%s",brick)
   url  <- sprintf("https://github.com/%s",repo)
-  brick_install_url(url,repo)
+  install_brick_url(url,repo)
 }
 
 #' removes biobrick from bblib
@@ -37,7 +37,7 @@ brick_remove <- function(brick){
 #' @param url a url like https://github.com/biobricks-ai/clinvar.git
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
-brick_install_url <- function(url,repo){
+install_brick_url <- function(url,repo){
   c(check_is_git_repo(url), check_empty_repo(repo), check_init())
 
   # add submodule
@@ -55,6 +55,6 @@ brick_install_url <- function(url,repo){
 #' Installs a brick from a github repo
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
-brick_install_gh <- function(repo){
-  brick_install_url(sprintf("https://github.com/%s", repo), repo)
+install_brick_gh <- function(repo){
+  install_brick_url(sprintf("https://github.com/%s", repo), repo)
 }
