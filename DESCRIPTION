@@ -21,6 +21,7 @@ Suggests:
     rmdformats,
     yaml,
     testthat (>= 3.0.0),
-    withr
+    withr,
+    here
 Config/testthat/edition: 3
 VignetteBuilder: knitr

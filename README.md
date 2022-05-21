@@ -7,36 +7,45 @@ R package for biobricks
 
 ```R
 remotes::install_github("biobricks-ai/biobricks-R")
-Sys.setenv(bblib="/mnt/biobricks") # set path for data dependencies
-biobricks::initialize()            # init the biobricks library
+biobricks::local_bblib() # OR set a permanent brick dir w/ Sys.setenv(bblib=...) 
+biobricks::initialize()  # init the biobricks library
 ```
 
-Load tables from [ncbi.nlm.nih.gov/clinvar](https://www.ncbi.nlm.nih.gov/clinvar/)
+Load the HGNC namespace [github.com/biobricks.ai/HGNC](https://github.com/biobricks.ai/HGNC):
 ```R
 library(biobricks)
-install.biobricks("clinvar")
-brick_repro("clinvar")
-brick_load_arrow("clinvar)
+install_brick("HGNC")
+brick_pull("HGNC") # OR build it with brick_repro("HGNC")
 ```
 
-View the table names:  
+Load the brick and view the table names:  
 ```R
-names(ds)
-# [1] "allele_gene" "cross_references" "gene_specific_summary"                 
-# [4] "hgvs4variation" "organization_summary" "submission_summary"                    
-# [7] "summary_of_conflicting_interpretations" "var_citations"                         
-# [9] "variant_summary" "variation_allele"
+tbls <- brick_load_arrow("HGNC")
+names(tbls) # "hgnc_complete_set.parquet"
 ```
 
 Each table is a lazy table that can be loaded into memory:
 ```R
-ds$allele_gene |> head() |> dplyr::collect()
-# AlleleID GeneID Symbol  Name                  GenesPerAlleleID Category Source
-#    <dbl>  <dbl> <chr>   <chr>                            <dbl> <chr>    <chr> 
-#    15041   9907 AP5Z1   adaptor related prot…                1 within … submi…
-#    15042   9907 AP5Z1   adaptor related prot…                1 within … submi…
-#    15043   9640 ZNF592  zinc finger protein …                1 within … submi…
-#    15044  55572 FOXRED1 FAD dependent oxidor…                1 within … submi…
-#    15045  55572 FOXRED1 FAD dependent oxidor…                1 within … submi…
-#    15046  80224 NUBPL   NUBP iron-sulfur clu…                1 within … submi…
+tbls$hgnc_complete_set.parquet |> dplyr::collect()
+
+# # A tibble: 43,147 × 54
+#    hgnc_id    symbol  name  locus_group locus_type
+#  * <chr>      <chr>   <chr> <chr>       <chr>     
+#  1 HGNC:5     A1BG    alph… protein-co… gene with…
+#  2 HGNC:37133 A1BG-A… A1BG… non-coding… RNA, long…
+#  3 HGNC:24086 A1CF    APOB… protein-co… gene with…
+#  4 HGNC:7     A2M     alph… protein-co… gene with…
+#  5 HGNC:27057 A2M-AS1 A2M … non-coding… RNA, long…
+#  6 HGNC:23336 A2ML1   alph… protein-co… gene with…
+#  7 HGNC:41022 A2ML1-… A2ML… non-coding… RNA, long…
+#  8 HGNC:41523 A2ML1-… A2ML… non-coding… RNA, long…
+#  9 HGNC:8     A2MP1   alph… pseudogene  pseudogene
+# 10 HGNC:30005 A3GALT2 alph… protein-co… gene with…
+# # … with 43,137 more rows, and 49 more variables:
+# #   status <chr>, location <chr>,
+# #   location_sortable <chr>, alias_symbol <chr>,
+# #   alias_name <chr>, prev_symbol <chr>,
+# #   prev_name <chr>, gene_group <chr>,
+# #   gene_group_id <chr>,
+# #   date_approved_reserved <date>, …
 ```
