@@ -38,7 +38,7 @@ brick_remove <- function(brick){
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
 install_brick_url <- function(url,repo){
-  c(check_is_git_repo(url), check_empty_repo(repo), check_init())
+  c(check_is_git_repo(url), check_can_install(repo), check_init())
 
   # add submodule
   result  <- systemf("cd %s; git submodule add %s %s",bblib(),url,repo)

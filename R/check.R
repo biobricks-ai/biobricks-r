@@ -21,14 +21,14 @@ check_is_git_repo <- function(url){
   stop(url, " is not a git repo") 
 }
 
-check_empty_repo <- function(repo){
+check_can_install <- function(repo){
   if(purrr::is_empty(brick_path(repo))){ return(T) }
   stop(repo, " already exists, can't install")
 }
 
 check_brick_exists <- function(brick){
   if(!purrr::is_empty(brick_path(brick))){ return(T) }
-  stop("missing brick ", brick, " try `brick_install(brick)`")
+  stop("missing brick ", brick, " try `install_brick(brick)`")
 }
 
 check_brick_has_data <- function(brick){
