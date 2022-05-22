@@ -20,7 +20,7 @@ test_that("install-and-brick_repro-docker", {
 
 test_that("install-and-remove-and-install works",{
   local_bblib()
-  set_git_config()
+  
   install_and_test_hello_brick <- \(){
     biobricks::install_brick_gh("biobricks-ai/hello-brick")
     biobricks::brick_repro("hello-brick", env="system")

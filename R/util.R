@@ -18,19 +18,6 @@ local_bblib <- function(env=parent.frame()){
   bblib
 }
 
-#' @keywords internal
-set_git_config <- function(){
-  if (systemf("cd %s ; git config user.name", bblib()) != 0) {
-    message("Setting git user.name")
-    systemf("cd %s ; git config user.name 'Biobricks'", bblib())
-  }
-
-  if (systemf("cd % s ; git config user.email", bblib()) != 0) {
-    message("Setting git user.email")
-    systemf("cd %s ; git config user.email '<biobricks@insilica.co>'", bblib())
-  }
-}
-
 build.sh <- function(wd){
   \(txt,...){ # create shell with workdir
     args <- list(...)
