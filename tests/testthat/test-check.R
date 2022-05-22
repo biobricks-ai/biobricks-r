@@ -33,3 +33,8 @@ test_that("check_init", {
   local_bblib()
   expect_true(check_init())
 })
+
+test_that("check has git and has dvc", {
+  expect_true(check_has_git())
+  expect_true(check_has_dvc())
+})

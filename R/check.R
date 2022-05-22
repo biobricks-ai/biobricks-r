@@ -1,19 +1,11 @@
-check_has_bblib <- function(){
-  if(Sys.getenv("bblib")!=""){ return(T) }
-  if(interactive()){
-    print("bblib env not set")
-    print("bblib should be a large drive")
-    res <- readline("set bblib now? y/n \n")
-    if(res=="y"){
-      value <- readline("what directory?\n")
-      if(fs::is_dir(value)){
-        Sys.setenv(bblib=value)
-        print("bblib set to ",value)
-      }else{
-        print("bblib must be a directory")
-      }
-    }
-  }
+check_has_git <- \(){
+  if(suppressWarnings(system("command -v git >/dev/null 2>&1"))==0){return(T)}
+  stop("git must be installed. See https://github.com/git-guides/install-git")
+}
+
+check_has_dvc <- \(){
+  if(suppressWarnings(system("command -v dvc >/dev/null 2>&1"))==0){return(T)}
+  stop("dvc must be installed. See https://dvc.org/doc/install")
 }
 
 check_is_git_repo <- function(url){
