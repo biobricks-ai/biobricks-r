@@ -40,18 +40,17 @@ test_that("install-and-remove-and-install works",{
 
 test_that("install-hello-1.0-and-update",{
   local_bblib()
-  skip_on_ci()
   install_brick("hello-brick")
   brick <- brick_path("hello-brick")
   
   # RESET to 1.0, brick_repro, and look for hello.txt
   systemf("(cd %s; git reset --hard 1.0)",brick)
-  brick_repro("hello-brick")
+  brick_repro("hello-brick",env="system")
   expect_equal(brick_ls("hello-brick") |> fs::path_file(),c("hello.txt"))
 
   # update hello-brick, check that it has mtcars.parquet
   update_brick("hello-brick")
-  brick_repro("hello-brick")
+  brick_repro("hello-brick",env="system")
   expect_equal(brick_ls("hello-brick") |> fs::path_file(),c("mtcars.parquet"))
 })
 
