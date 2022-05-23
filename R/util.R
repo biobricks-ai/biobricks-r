@@ -29,10 +29,12 @@ vglu <- function(txt,...){
 
 # create shell that runs commands in working directory
 #' @param wd the working directory to run in
+#' @param .intern default value for system @intern param
 #' @keywords internal
 build.sh <- function(wd){
   \(txt,...){ 
-    cmd <- vglu("cd <wd>;<t> <a>",wd=wd,t=txt,a=paste(...,collapse=""))
-    system(cmd)
+    cmd <- vglu("<txt> <arg>",txt=txt,arg=paste(...,collapse=""))
+    cat(vglu("➜ <wd> > <cmd>\n",wd=fs::path_file(wd),cmd=cmd))
+    system(vglu("cd <wd>; <cmd>",wd=wd,cmd=cmd),intern=T)
   }
 }
