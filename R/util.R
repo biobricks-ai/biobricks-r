@@ -18,10 +18,21 @@ local_bblib <- function(env=parent.frame()){
   bblib
 }
 
+# vglu or `varargs glue` a lightweight glue function to sub varargs into a string
+#' @param txt the text to modify
+#' @param ... named arguments to replace <arg> in @txt
+#' @keywords internal
+vglu <- function(txt,...){
+  args <- list(...) |> purrr::imap(~ list(arg=.x,pat=sprintf("<%s>",.y)))
+  args |> purrr::reduce(\(txt,pa){ gsub(pa$pat,pa$arg,txt) },.init=txt)
+}
+
+# create shell that runs commands in working directory
+#' @param wd the working directory to run in
+#' @keywords internal
 build.sh <- function(wd){
-  \(txt,...){ # create shell with workdir
-    args <- list(...)
-    cmd  <- do.call("sprintf",as.list(c(txt,args)))
-    cmd  <- paste("cd ",wd,";",cmd,collapse="")    
+  \(txt,...){ 
+    cmd <- vglu("cd <wd>;<t> <a>",wd=wd,t=txt,a=paste(...,collapse=""))
     system(cmd)
-}}
+  }
+}
