@@ -1,6 +1,6 @@
-test_that("build.sh works", {
+test_that("build_shell works", {
   local_bblib()
-  sh  <- build.sh(bblib())
+  sh  <- build_shell(bblib())
   res <- sh("ls")
   expect_equal(sh("ls"),"cache")
 

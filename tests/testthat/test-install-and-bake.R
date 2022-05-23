@@ -1,12 +1,3 @@
-test_that("install-and-brick_pull", {
-  local_bblib()
-  biobricks::install_brick_gh("biobricks-ai/hello-brick")
-  biobricks::brick_pull("hello-brick")
-  hellotbl <- brick_load_arrow("hello-brick")$mtcars.parquet |> dplyr::collect()
-  rownames(mtcars) <- 1:32
-  expect_equal(hellotbl,mtcars)
-})
-
 test_that("install-and-brick_repro-system", {
   local_bblib()
   biobricks::install_brick_gh("biobricks-ai/hello-brick")

@@ -29,6 +29,7 @@ test_that("check_brick_has_data", {
 })
 
 test_that("check_init", {
+  withr::local_envvar(list(bblib=""))
   expect_error(check_init(),"No bblib. Use `Sys.setenv(bblib='???')`",fixed=T)
   local_bblib()
   expect_true(check_init())
