@@ -17,6 +17,9 @@ jobs:
           extra-packages: |
             arrow
             covr
+            DBI
+            RSQLite
+            dbplyr
       - name: Install dvc
         run: |
           sudo wget \
