@@ -4,13 +4,11 @@ jobs:
   covr:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - run: echo "trigger event - ${{ github.event_name }}."
+      - run: echo "running os is - ${{ runner.os }}"
+      - run: echo "repo & branch - ${{ github.repository }} & ${{ github.ref }}."
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - uses: r-lib/actions/setup-r@v1
         with:
           use-public-rspm: true
@@ -27,7 +25,7 @@ jobs:
           wget -qO - https://dvc.org/deb/iterative.asc | sudo apt-key add -
           sudo apt update
           sudo apt install dvc
-      - name: Run R tests
+      - name: codecov and R tests
         run: |
           covr::codecov()
         shell: Rscript {0}
