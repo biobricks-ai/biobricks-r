@@ -25,17 +25,32 @@ test_that("check_brick_exists", {
 })
 
 test_that("check_brick_has_data", {
-  expect_error(check_init(),"No bblib. Use `Sys.setenv(bblib='???')`",fixed=T)
+  withr::local_envvar(list(bblib=""))
+  expect_error(check_init(),"No bblib. Use `Sys.setenv(bblib='...')`",fixed=T)
+  
+  local_bblib()
+  install_brick("hello-brick")
+  expect_error(check_brick_has_data("hello-brick"),
+  "no data for hello-brick\n`brick_pull` to pull data\n`brick_repro` to build data",fixed=T)
+  
+  brick_repro("hello-brick",env="system")
+  expect_true(check_brick_has_data("hello-brick"))
 })
 
 test_that("check_init", {
   withr::local_envvar(list(bblib=""))
-  expect_error(check_init(),"No bblib. Use `Sys.setenv(bblib='???')`",fixed=T)
-  local_bblib()
+  expect_error(check_init(),"No bblib. Use `Sys.setenv(bblib='...')`",fixed=T)
+
+  bblib <- withr::local_tempdir()
+  withr::local_envvar(list(bblib=bblib))
+  expect_error(check_init(),"bblib is not initialized",fixed=T)
+  
+  initialize()
   expect_true(check_init())
 })
 
 test_that("check has git and has dvc", {
   expect_true(check_has_git())
+  expect_error(git_failure(),"git must be installed. See https://github.com/git-guides/install-git")
   expect_true(check_has_dvc())
 })

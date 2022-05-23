@@ -52,7 +52,9 @@ test_that("install-hello-1.0-and-update",{
   # update hello-brick, check that it has mtcars.parquet
   update_brick("hello-brick")
   brick_repro("hello-brick",env="system")
-  expect_equal(brick_ls("hello-brick") |> fs::path_file(),c("mtcars.parquet"))
+  expect_equal(
+    brick_ls("hello-brick") |> fs::path_file(),
+    c("hello.txt","iris.sqlite","mtcars.parquet"))
 })
 
 test_that("graceful error from missing remote",{

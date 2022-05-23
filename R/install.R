@@ -1,9 +1,14 @@
-#' Update a brick
+#' Update a brick in 3 steps:
+#' 1. stashes all local changes 
+#' 2. installs the most recent from origin
+#' 3. drops the stash
 #' @param brick the brick to update
 #' @export
 update_brick <- function(brick){
   c(check_init(), check_brick_exists(brick))
-  systemf('cd %s ; git pull origin',brick_path(brick))
+  systemf("cd %s; git stash",      brick_path(brick))
+  systemf('cd %s; git pull origin',brick_path(brick))
+  systemf("cd %s; git stash drop", brick_path(brick))
 }
 
 #' Installs a biobricks-ai maintained brick
