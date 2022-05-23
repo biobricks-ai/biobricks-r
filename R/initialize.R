@@ -10,5 +10,5 @@ initialize <- function(){
 
   systemf("cd %s; git init",bblib())
   systemf("cd %s; mkdir cache",bblib())
-  message("initialized biobricks to",bblib())
+  message("initialized biobricks to ",bblib())
 }
