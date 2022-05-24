@@ -1,3 +1,16 @@
+#' Find urls for brick outs
+#' @param brick the brick to get files for
+#' @param .p a predicate to filter returned files (must return true on file path)
+#' @export
+brick_ls_remote <- \(brick){
+  ori <- git2r::remote_url(brick_path(brick),remote="origin")
+  dvc <- partial(reticulate::import("dvc.api")$get_url,repo=ori)
+  
+  stg <- yaml::read_yaml(brick_path(brick,"dvc.lock"))$stages
+  out <- stg |> map("outs") |> flatten() |> map("path")
+  map(out,~ list(outs=., remote=dvc(.)))
+}
+
 #' Get the files in a brick
 #' @param brick the brick to get files for
 #' @param .p a predicate to filter returned files (must return true on file path)

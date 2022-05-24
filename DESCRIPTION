@@ -19,7 +19,8 @@ Suggests:
     RSQLite,
     rmarkdown,
     rmdformats,
-    yaml,
+    yaml,                 # used for testing purposes
+    reticulate,           # will eventually replace system dvc
     testthat (>= 3.0.0),
     withr,
     here

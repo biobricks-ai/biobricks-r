@@ -8,5 +8,5 @@
 brick_pull <- function(brick){
   c(check_init(),check_brick_exists(brick))
   cmd <- sprintf("cd %s; dvc pull",brick_path(brick))
-  system(cmd,ignore.stdout = T, ignore.stderr = T)
+  system(cmd,ignore.stdout = F, ignore.stderr = T)
 }
