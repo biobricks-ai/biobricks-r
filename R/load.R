@@ -10,12 +10,13 @@ brick_ls <- \(brick,.p=NULL) {
 
 #' creates a nested list of values by path
 #' @param x a set of values to make into nested list
-#' @param path filesytem paths to nest
-#' @importFrom purrr set_names imap
+#' @param p filesytem paths to nest and use for names
+#' @param pd used for recursion
+#' @param rp used for recursion
 #' @keyword internal
-ptree <- \(x,p=names(x),pd=fs::path_dir(p),rp=map2(p,pd,fs::path_rel)){
-  a <- set_names(x,rp) |> split(pd) 
-  c(a[["."]], map(a[which(names(a)!=".")],ptree))
+ptree <- \(x,p=names(x),pd=fs::path_dir(p),rp=purrr::map2(p,pd,fs::path_rel)){
+  a <- purrr::set_names(x,rp) |> split(pd) 
+  c(a[["."]], purrr::map(a[which(names(a)!=".")],ptree))
 }
 
 #' Return a list of tables for a brick
