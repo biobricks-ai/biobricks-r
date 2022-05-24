@@ -54,10 +54,8 @@ brick_load_sqlite <- \(brick, env=parent.frame()){
     tbls
   }
   
-  message("opened sqlite connection.\n* DBI::dbDisconnect(.$close()) to close.")
+  message("opened sqlite connection.\n* DBI::dbDisconnect(.$...$con) to close.")
 
-  .p        <- \(file){ grepl(pat="(\\.db$|\\.sqlite)", file, i=T) }
-  res       <- brick_load(brick, .p=.p, .l=sqlite_load)
-  res$close <- \(){ map(res, ~ DBI::dbDisconnect(.$con)) }
-  res
+  .p <- \(file){ grepl(pat="(\\.db$|\\.sqlite)", file, i=T) }
+  brick_load(brick, .p=.p, .l=sqlite_load)
 }
