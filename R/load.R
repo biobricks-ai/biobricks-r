@@ -1,14 +1,13 @@
 #' Find urls for brick outs
 #' @param brick the brick to get files for
-#' @param .p a predicate to filter returned files (must return true on file path)
 #' @export
 brick_ls_remote <- \(brick){
   ori <- git2r::remote_url(brick_path(brick),remote="origin")
-  dvc <- partial(reticulate::import("dvc.api")$get_url,repo=ori)
+  dvc <- purrr::partial(reticulate::import("dvc.api")$get_url,repo=ori)
   
   stg <- yaml::read_yaml(brick_path(brick,"dvc.lock"))$stages
-  out <- stg |> map("outs") |> flatten() |> map("path")
-  map(out,~ list(outs=., remote=dvc(.)))
+  out <- stg |> purrr::map("outs") |> purrr::flatten() |> purrr::map("path")
+  purrr::map(out,~ list(outs=., remote=dvc(.)))
 }
 
 #' Get the files in a brick
@@ -69,6 +68,6 @@ brick_load_sqlite <- \(brick, env=parent.frame()){
   
   message("opened sqlite connection.\n* DBI::dbDisconnect(.$...$con) to close.")
 
-  .p <- \(file){ grepl(pat="(\\.db$|\\.sqlite)", file, i=T) }
+  .p <- \(f){ grepl(pattern="(\\.db$|\\.sqlite)", f, ignore.case=T) }
   brick_load(brick, .p=.p, .l=sqlite_load)
 }

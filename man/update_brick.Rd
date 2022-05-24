@@ -2,7 +2,12 @@
 % Please edit documentation in R/install.R
 \name{update_brick}
 \alias{update_brick}
-\title{Update a brick}
+\title{Update a brick in 3 steps:
+\enumerate{
+\item stashes all local changes
+\item installs the most recent from origin
+\item drops the stash
+}}
 \usage{
 update_brick(brick)
 }
@@ -10,5 +15,10 @@ update_brick(brick)
 \item{brick}{the brick to update}
 }
 \description{
-Update a brick
+Update a brick in 3 steps:
+\enumerate{
+\item stashes all local changes
+\item installs the most recent from origin
+\item drops the stash
+}
 }

@@ -29,7 +29,7 @@ vglu <- function(txt,...){
 build_shell <- function(wd,.intern=T){
   \(txt,...){ 
     cmd <- vglu("<txt> <arg>",txt=txt,arg=paste(...,collapse=""))
-    cat(vglu("➜ <wd> > <cmd>\n",wd=fs::path_file(wd),cmd=cmd))
+    cat(vglu("\u2794 <wd> > <cmd>\n",wd=fs::path_file(wd),cmd=cmd))
     system(vglu("cd <wd>; <cmd>",wd=wd,cmd=cmd),intern=.intern)
   }
 }

@@ -20,6 +20,7 @@ Suggests:
     rmarkdown,
     rmdformats,
     yaml,
+    git2r,
     reticulate,
     testthat (>= 3.0.0),
     withr,

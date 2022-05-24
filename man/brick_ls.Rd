@@ -4,14 +4,12 @@
 \alias{brick_ls}
 \title{Get the files in a brick}
 \usage{
-brick_ls(brick, .p = NULL, rel)
+brick_ls(brick, .p = NULL)
 }
 \arguments{
 \item{brick}{the brick to get files for}
 
 \item{.p}{a predicate to filter returned files (must return true on file path)}
-
-\item{rel}{a predicate to filter returned files (must return true on file path)}
 }
 \description{
 Get the files in a brick

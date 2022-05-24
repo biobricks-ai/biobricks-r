@@ -5,16 +5,10 @@
 \title{A helper to use brick_load with a custom sqlite loader. opens a sqlite connection
 and closes it when parent exits.}
 \usage{
-brick_load_sqlite(
-  brick,
-  .p = partial(grepl, pat = "(\\\\.db$|\\\\.sqlite)", i = T),
-  env = parent.frame()
-)
+brick_load_sqlite(brick, env = parent.frame())
 }
 \arguments{
 \item{brick}{the name of the brick to load}
-
-\item{.p}{default to grepl on sqlite names like .db and .sqlite}
 
 \item{env}{when @param env exits, biobricks closes the sqlite connection}
 }
