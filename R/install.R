@@ -45,10 +45,8 @@ brick_remove <- function(brick){
 install_brick_url <- function(url,repo){
   c(check_is_git_repo(url), check_can_install(repo), check_init())
 
-  # add submodule
   systemf("cd %s; git submodule add %s %s",bblib(),url,repo)
   
-  # config dvc cache
   systemf('cd %s; dvc cache dir ../../cache',     bblib(repo))
   systemf('cd %s; dvc config cache.shared group', bblib(repo))
   systemf('cd %s; dvc config cache.type symlink', bblib(repo))

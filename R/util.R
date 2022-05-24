@@ -3,11 +3,6 @@ systemf <- function(...,intern=FALSE,ignore.stdout=TRUE,ignore.stderr=TRUE){
   system(sprintf(...),intern=intern,ignore.stdout=ignore.stdout,ignore.stderr=ignore.stderr)
 }
 
-#' @keywords internal
-url_is_git_repo <- function(url){
-  systemf("git ls-remote %s",url) == 0
-}
-
 #' creates a biobricks library in a temporary directory. Useful for development
 #' @param env environment in which to create a temporary biobicks library
 #' @export 

@@ -22,29 +22,3 @@ brick_repro <- function(brick,env="docker",image="insilica/biobricks:latest"){
     .=="system" ~ system(sys,intern=T),
     T           ~ stop("`env` must be 'docker' or 'system'"))
 }
-
-#' pull data for a brick from biobricks.ai
-#' @param brick pull data from this brick
-#' @export
-#' @examples
-#' \dontrun{
-#' biobricks::brickpull("clinvar")
-#' }
-brick_pull <- function(brick){
-  c(check_init(),check_brick_exists(brick))
-  cmd <- sprintf("cd %s; dvc pull",brick_path(brick))
-  system(cmd,ignore.stdout = T, ignore.stderr = T)
-}
-
-#' Finds all the bricks in `bblib()` matching @param brick
-#' @param brick the brick you want to find 
-#' @param path retrieve path relative to the brick directory
-#' @export
-#' @examples
-#' \dontrun{
-#' biobricks::resolve("clinvar")
-#' }
-brick_path <- function(brick,path=""){
-  bdvc <- fs::path(brick,"dvc.yaml")
-  fs::dir_ls(bblib(),recurse=T,regexp=bdvc) |> fs::path_dir() |> fs::path(path)
-}

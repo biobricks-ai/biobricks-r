@@ -9,7 +9,7 @@ check_has_dvc <- \(fail=F){
 }
 
 check_is_git_repo <- function(url){
-  if(url_is_git_repo(url)){ return(T) }
+  if(systemf("git ls-remote %s",url) == 0){ return(T) }
   stop(url, " is not a git repo") 
 }
 
