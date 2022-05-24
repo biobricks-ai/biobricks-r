@@ -11,23 +11,21 @@ brick_ls <- \(brick,.p=NULL) {
 #' creates a nested list of values by path
 #' @param x a set of values to make into nested list
 #' @param path filesytem paths to nest
-#' @importFrom purrr map
+#' @importFrom purrr set_names imap
 #' @keyword internal
-fs_recurse <- \(x,path=names(x)){
-  if(all(fs::path_dir(path)==".")){ return(set_names(x,path)) }
-  split(x, fs::path_dir(path)) |> purrr::imap( ~ fs_recurse(.x,fs::path_rel(names(.x),.y)))
+ptree <- \(x,p=names(x),pd=fs::path_dir(p),rp=map2(p,pd,fs::path_rel)){
+  a <- set_names(x,rp) |> split(pd) 
+  c(a[["."]], map(a[which(names(a)!=".")],ptree))
 }
 
 #' Return a list of tables for a brick
 #' @param brick the name of the brick to load
 #' @param .p which files should be loaded this way?
 #' @param .l which loading function should be used?
-#' @param recurse return a nested list of values
 #' @export
-brick_load <- function(brick, .p, .l, recurse=T) {
-  rp <- brick_ls(brick,.p) |> fs::path_rel(brick_path(brick,"data"))
-  v  <- brick_ls(brick,.p) |> purrr::map(.l) |> purrr::set_names(rp)
-  if(recurse){ fs_recurse(v,rp) }else{ v }
+brick_load <- function(brick, .p, .l) {
+  relpath <- brick_ls(brick,.p) |> fs::path_rel(brick_path(brick,"data"))
+  brick_ls(brick,.p) |> purrr::map(.l) |> ptree(p=relpath)
 }
 
 #' A helper to use brick_load with the arrow package
@@ -48,20 +46,17 @@ brick_load_arrow <- \(brick){
 brick_load_sqlite <- \(brick, env=parent.frame()){
   
   sqlite_load <- function(file){
-    con <- DBI::dbConnect(RSQLite::SQLite(),file)
-    withr::defer(DBI::dbDisconnect(con), envir=env)
-
-    tbls <- DBI::dbListTables(con)
-    tbls <- tbls |> purrr::set_names(tbls) |> purrr::map(~ dplyr::tbl(src=con,.))
-    tbls$close <- \(){ DBI::dbDisconnect(con) }
-    
+    con      <- DBI::dbConnect(RSQLite::SQLite(),file)
+    tbls     <- DBI::dbListTables(con)
+    tbls     <- tbls |> purrr::set_names(tbls) |> purrr::map(~ dplyr::tbl(src=con,.))
+    tbls$con <- con
     tbls
   }
   
-  message("opened sqlite connection 
-      * auto closes on parent exit
-      * manual close with .$close() or `withr::deferred_run()`")
+  message("opened sqlite connection.\n* DBI::dbDisconnect(.$close()) to close.")
 
-  .p  <- \(file){ grepl(pat="(\\.db$|\\.sqlite)", file, i=T) }
-  res <- brick_load(brick, .p=.p, .l=sqlite_load)
+  .p        <- \(file){ grepl(pat="(\\.db$|\\.sqlite)", file, i=T) }
+  res       <- brick_load(brick, .p=.p, .l=sqlite_load)
+  res$close <- \(){ map(res, ~ DBI::dbDisconnect(.$con)) }
+  res
 }

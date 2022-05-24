@@ -51,6 +51,7 @@ test_that("check_init", {
 
 test_that("check has git and has dvc", {
   expect_true(check_has_git())
-  expect_error(git_failure(),"git must be installed. See https://github.com/git-guides/install-git")
+  expect_error(check_has_git(fail = T),"git must be installed. See https://github.com/git-guides/install-git")
   expect_true(check_has_dvc())
+  expect_error(check_has_dvc(fail = T),"dvc must be installed. See https://dvc.org/doc/install")
 })

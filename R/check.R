@@ -1,14 +1,10 @@
-git_failure <- \(){
+check_has_git <- \(fail=F){
+  if(!fail && suppressWarnings(system("command -v git >/dev/null 2>&1"))==0){return(T)}
   stop("git must be installed. See https://github.com/git-guides/install-git")
 }
 
-check_has_git <- \(){
-  if(suppressWarnings(system("command -v git >/dev/null 2>&1"))==0){return(T)}
-  git_failure()
-}
-
-check_has_dvc <- \(){
-  if(suppressWarnings(system("command -v dvc >/dev/null 2>&1"))==0){return(T)}
+check_has_dvc <- \(fail=F){
+  if(!fail && suppressWarnings(system("command -v dvc >/dev/null 2>&1"))==0){return(T)}
   stop("dvc must be installed. See https://dvc.org/doc/install")
 }
 

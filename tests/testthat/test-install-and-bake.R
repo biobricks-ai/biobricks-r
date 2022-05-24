@@ -53,8 +53,8 @@ test_that("install-hello-1.0-and-update",{
   update_brick("hello-brick")
   brick_repro("hello-brick",env="system")
   expect_equal(
-    brick_ls("hello-brick") |> fs::path_file(),
-    c("hello.txt","iris.sqlite","mtcars.parquet"))
+    brick_ls("hello-brick") |> fs::path_rel(brick_path(brick)) |> as.character(),
+    c("data/hello.txt","data/iris.sqlite","data/mtcars.parquet","data/rtbls","data/rtbls/iris.parquet","data/rtbls/mtcars.parquet"))
 })
 
 test_that("graceful error from missing remote",{
