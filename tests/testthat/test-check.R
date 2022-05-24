@@ -1,7 +1,3 @@
-test_that("check_has_bblib", {
-  expect_equal(2 * 2, 4) # TODO write this test, maybe remove `check_init` function
-})
-
 test_that("check_is_git_repo", {
   expect_error(check_is_git_repo("snoop"),"snoop is not a git repo",fixed=T)
   expect_error(check_is_git_repo("https://github.com/biobricks-ai/aQWsdf"),
