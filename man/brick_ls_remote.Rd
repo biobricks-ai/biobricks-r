@@ -4,10 +4,12 @@
 \alias{brick_ls_remote}
 \title{Find urls for brick outs}
 \usage{
-brick_ls_remote(brick)
+brick_ls_remote(brick, remote = "https://ins-dvc.s3.amazonaws.com/insdvc")
 }
 \arguments{
 \item{brick}{the brick to get files for}
+
+\item{remote}{the url remote, uses the biobricks.ai s3 remote by default}
 }
 \description{
 Find urls for brick outs

@@ -20,8 +20,7 @@ jobs:
             DBI
             RSQLite
             dbplyr
-            git2r
-            yaml
+            httr
       - name: Install dvc
         run: |
           sudo wget \

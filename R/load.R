@@ -1,13 +1,16 @@
 #' Find urls for brick outs
 #' @param brick the brick to get files for
+#' @param remote the url remote, uses the biobricks.ai s3 remote by default
+#' @importFrom purrr map flatten walk
 #' @export
-brick_ls_remote <- \(brick){
-  ori <- git2r::remote_url(brick_path(brick),remote="origin")
-  dvc <- purrr::partial(reticulate::import("dvc.api")$get_url,repo=ori)
-  
-  stg <- yaml::read_yaml(brick_path(brick,"dvc.lock"))$stages
-  out <- stg |> purrr::map("outs") |> purrr::flatten() |> purrr::map("path")
-  purrr::map(out,~ list(outs=., remote=dvc(.)))
+brick_ls_remote <- \(brick,remote="https://ins-dvc.s3.amazonaws.com/insdvc"){
+  url  <- \(md5){ sprintf("%s/%s/%s",remote,substr(md5,1,2),substr(md5,3,nchar(md5))) }
+  stg  <- yaml::read_yaml(brick_path(brick,"dvc.lock"))$stages
+  out  <- stg |> map("outs") |> flatten() |> map("path")
+  urls <- stg |> map("outs") |> flatten() |> map("md5") |> map(url)
+  stat <- urls |> map(~httr::HEAD(.)$status)
+  out[stat!=200] |> walk(~ stop(.," is not accessible on remote"))
+  purrr::map2(out,urls,~ list(outs=.x, remote=.y))
 }
 
 #' Get the files in a brick
