@@ -46,8 +46,7 @@ install_brick_url <- function(url,repo){
   c(check_is_git_repo(url), check_can_install(repo), check_init())
 
   # add submodule
-  result  <- systemf("cd %s; git submodule add %s %s",bblib(),url,repo)
-  if (result != 0) { stop(sprintf("Could not add brick to git repo %s",bblib()))}
+  systemf("cd %s; git submodule add %s %s",bblib(),url,repo)
   
   # config dvc cache
   systemf('cd %s; dvc cache dir ../../cache',     bblib(repo))
