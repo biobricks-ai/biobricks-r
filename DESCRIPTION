@@ -1,7 +1,7 @@
 Package: biobricks
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9005
-Authors@R: 
+Authors@R:
     person("Thomas", "Luechtefeld", , "tom@insilica.co", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
@@ -19,8 +19,8 @@ Suggests:
     RSQLite,
     rmarkdown,
     rmdformats,
-    yaml,                 # used for testing purposes
-    reticulate,           # will eventually replace system dvc
+    yaml,
+    reticulate,
     testthat (>= 3.0.0),
     withr,
     here
