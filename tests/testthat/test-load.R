@@ -14,4 +14,5 @@ test_that("load sqlite", {
   expect_equal(sql.iris,iris)
 
   DBI::dbListTables(tbls$iris.sqlite$con)
+  tbls$close()
 })
