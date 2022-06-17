@@ -1,13 +1,13 @@
 Package: biobricks
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9007
+Title: install, pull, repro and load biobricks-ai data dependencies
+Version: 0.0.0.9008
 Authors@R:
     person("Thomas", "Luechtefeld", , "tom@insilica.co", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Imports:
     fs,
     purrr,

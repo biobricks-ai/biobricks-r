@@ -50,7 +50,7 @@ brick_load <- function(brick, .p, .l) {
 #' @export
 brick_load_arrow <- \(brick){
   is_tab  <- \(f){ fs::path_ext(f) %in% c("parquet","arrow","ipc","feather","csv","tsv","text") }
-  is_part <- \(f){ grepl("/.*parquet/",f) } # datasets should be dirs with tab ext
+  is_part <- \(f){ grepl("/.*\\.parquet/",f) } # datasets should be dirs with tab ext
   brick_load(brick, .p=\(f){ is_tab(f) && !is_part(f) }, .l=arrow::open_dataset)
 }
 
