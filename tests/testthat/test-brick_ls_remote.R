@@ -1,7 +1,7 @@
 test_that("brick_ls_remote", {
   local_bblib()
   brick <- "hello-brick"
-  install_brick(brick)
+  brick_install(brick)
   
   with(brick_ls_remote(brick) |> purrr::transpose(),{
     expect_setequal(outs,  c("data/iris.sqlite","data/mtcars.parquet","data/rtbls/"))

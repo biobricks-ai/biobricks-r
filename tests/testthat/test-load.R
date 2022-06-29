@@ -1,7 +1,7 @@
 test_that("load sqlite", {
   local_bblib()
   brick <- "hello-brick"
-  install_brick(brick)
+  brick_install(brick)
 
   brick_repro(brick,env="system")
   

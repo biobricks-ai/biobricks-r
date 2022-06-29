@@ -14,10 +14,10 @@ update_brick <- function(brick){
 #' Installs a biobricks-ai maintained brick
 #' @param brick a brick from biobricks-ai, see https://github.com/biobricks-ai/{brick}
 #' @export
-install_brick <- function(brick){
+brick_install <- function(brick){
   repo <- sprintf("biobricks-ai/%s",brick)
   url  <- sprintf("https://github.com/%s",repo)
-  install_brick_url(url,repo)
+  brick_install_url(url,repo)
 }
 
 #' removes biobrick from bblib
@@ -42,7 +42,7 @@ brick_remove <- function(brick){
 #' @param url a url like https://github.com/biobricks-ai/clinvar.git
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
-install_brick_url <- function(url,repo){
+brick_install_url <- function(url,repo){
   c(check_is_git_repo(url), check_can_install(repo), check_init())
 
   systemf("cd %s; git submodule add %s %s",bblib(),url,repo)
@@ -57,6 +57,6 @@ install_brick_url <- function(url,repo){
 #' Installs a brick from a github repo
 #' @param repo string with owner/repo eg. "biobricks-ai/clinvar"
 #' @export
-install_brick_gh <- function(repo){
-  install_brick_url(sprintf("https://github.com/%s", repo), repo)
+brick_install_gh <- function(repo){
+  brick_install_url(sprintf("https://github.com/%s", repo), repo)
 }

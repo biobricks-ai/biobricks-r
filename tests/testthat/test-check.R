@@ -8,15 +8,15 @@ test_that("check_is_git_repo", {
 test_that("check_can_install", {
   local_bblib()
   expect_true(check_can_install("hello-brick"))
-  install_brick("hello-brick")
+  brick_install("hello-brick")
   expect_error(check_can_install("hello-brick"),"hello-brick already exists, can't install",fixed=T)
 })
 
 test_that("check_brick_exists", {
   local_bblib()
   expect_error(check_brick_exists("hello-brick"),
-  "missing brick hello-brick try `install_brick(brick)`",fixed=T)
-  install_brick("hello-brick")
+  "missing brick hello-brick try `brick_install(brick)`",fixed=T)
+  brick_install("hello-brick")
   expect_true(check_brick_exists("hello-brick"))
 })
 
@@ -25,7 +25,7 @@ test_that("check_brick_has_data", {
   expect_error(check_init(),"No bblib. Use `Sys.setenv(bblib='...')`",fixed=T)
   
   local_bblib()
-  install_brick("hello-brick")
+  brick_install("hello-brick")
   expect_error(check_brick_has_data("hello-brick"),
   "no data for hello-brick\n`brick_pull` to pull data\n`brick_repro` to build data",fixed=T)
   

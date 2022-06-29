@@ -14,7 +14,7 @@ biobricks::initialize()  # init the biobricks library
 Load the HGNC namespace [github.com/biobricks.ai/HGNC](https://github.com/biobricks.ai/HGNC):
 ```R
 library(biobricks)
-install_brick("HGNC")
+brick_install("HGNC")
 brick_pull("HGNC") # OR build it with brick_repro("HGNC")
 ```
 

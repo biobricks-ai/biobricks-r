@@ -20,7 +20,7 @@ check_can_install <- function(repo){
 
 check_brick_exists <- function(brick){
   if(!purrr::is_empty(brick_path(brick))){ return(T) }
-  stop("missing brick ", brick, " try `install_brick(brick)`")
+  stop("missing brick ", brick, " try `brick_install(brick)`")
 }
 
 check_brick_has_data <- function(brick){
