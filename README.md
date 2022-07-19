@@ -5,6 +5,10 @@
 <!-- badges: end -->
 R package for biobricks
 
+# Installation
+1. install DVC (https://dvc.org/doc/install)
+2. install git (https://github.com/git-guides/install-git)
+3. install biobricks and initialize a temporary library directory with below steps
 ```R
 remotes::install_github("biobricks-ai/biobricks-R")
 biobricks::local_bblib() # OR set a permanent brick dir w/ Sys.setenv(bblib=...) 
