@@ -4,10 +4,12 @@
 \alias{brick_install}
 \title{Installs a biobricks-ai maintained brick}
 \usage{
-brick_install(brick)
+brick_install(brick, pull = F)
 }
 \arguments{
 \item{brick}{a brick from biobricks-ai, see https://github.com/biobricks-ai/{brick}}
+
+\item{pull}{flag to pull the data after installing a brick}
 }
 \description{
 Installs a biobricks-ai maintained brick

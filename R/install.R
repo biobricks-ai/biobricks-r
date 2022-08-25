@@ -13,11 +13,13 @@ update_brick <- function(brick){
 
 #' Installs a biobricks-ai maintained brick
 #' @param brick a brick from biobricks-ai, see https://github.com/biobricks-ai/{brick}
+#' @param pull flag to pull the data after installing a brick
 #' @export
-brick_install <- function(brick){
+brick_install <- function(brick,pull=F){
   repo <- sprintf("biobricks-ai/%s",brick)
   url  <- sprintf("https://github.com/%s",repo)
   brick_install_url(url,repo)
+  if(pull){ brick_pull(brick) }
 }
 
 #' removes biobrick from bblib

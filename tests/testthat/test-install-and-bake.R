@@ -7,6 +7,13 @@ test_that("install-and-brick_repro-system", {
   expect_equal(hellotbl,mtcars)
 })
 
+test_that("install-and-brick_pull", {
+  local_bblib()
+  biobricks::brick_install("hello-brick",pull=T)
+  hellotbl <- brick_load_arrow("hello-brick")$mtcars.parquet |> dplyr::collect()
+  rownames(mtcars) <- 1:32
+  expect_equal(hellotbl,mtcars)
+})
 
 test_that("install-and-brick_repro-docker", {
   testthat::skip_on_ci()
