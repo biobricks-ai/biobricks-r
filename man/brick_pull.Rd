@@ -4,7 +4,7 @@
 \alias{brick_pull}
 \title{pull data for a brick from biobricks.ai}
 \usage{
-brick_pull(brick)
+brick_pull(brick, stage)
 }
 \arguments{
 \item{brick}{pull data from this brick}
