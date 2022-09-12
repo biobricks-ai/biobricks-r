@@ -57,7 +57,7 @@ test_that("install-hello-1.0-and-update",{
   expect_equal(brick_ls("hello-brick") |> fs::path_file(),c("hello.txt"))
 
   # update hello-brick, check that it has mtcars.parquet
-  update_brick("hello-brick")
+  brick_update("hello-brick")
   brick_repro("hello-brick",env="system")
   expect_equal(
     brick_ls("hello-brick") |> fs::path_rel(brick_path(brick)) |> as.character(),
