@@ -4,7 +4,7 @@
 #' 3. drops the stash
 #' @param brick the brick to update
 #' @export
-update_brick <- function(brick){
+brick_update <- function(brick){
   c(check_init(), check_brick_exists(brick))
   systemf("cd %s; git stash",      brick_path(brick))
   systemf('cd %s; git pull origin',brick_path(brick))
