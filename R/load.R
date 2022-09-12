@@ -40,6 +40,7 @@ ptree <- \(x,p=names(x),pd=fs::path_dir(p),pr=purrr::map2(p,pd,fs::path_rel)){
 #' @param .l which loading function should be used?
 #' @export
 brick_load <- function(brick, .p, .l) {
+  if(missing(.p) || missing(.l)){ return(brick_load_arrow(brick)) }
   relpath <- brick_ls(brick,.p) |> fs::path_rel(brick_path(brick,"data"))
   brick_ls(brick,.p) |> purrr::map(.l) |> ptree(p=relpath)
 }
@@ -52,25 +53,4 @@ brick_load_arrow <- \(brick){
   is_tab  <- \(f){ fs::path_ext(f) %in% c("parquet","arrow","ipc","feather","csv","tsv","text") }
   is_part <- \(f){ grepl("/.*\\.parquet/",f) } # datasets should be dirs with tab ext
   brick_load(brick, .p=\(f){ is_tab(f) && !is_part(f) }, .l=arrow::open_dataset)
-}
-
-#' A helper to use brick_load with a custom sqlite loader. opens a sqlite connection
-#' and closes it when parent exits.
-#' @param brick the name of the brick to load
-#' @param env when @param env exits, biobricks closes the sqlite connection
-#' @export
-brick_load_sqlite <- \(brick, env=parent.frame()){
-  
-  sqlite_load <- function(file){
-    con      <- DBI::dbConnect(RSQLite::SQLite(),file)
-    tbls     <- DBI::dbListTables(con)
-    tbls     <- tbls |> purrr::set_names(tbls) |> purrr::map(~ dplyr::tbl(src=con,.))
-    tbls$con <- con
-    tbls
-  }
-  
-  message("opened sqlite connection.\n* DBI::dbDisconnect(.$...$con) to close.")
-
-  .p <- \(f){ grepl(pattern="(\\.db$|\\.sqlite)", f, ignore.case=T) }
-  brick_load(brick, .p=.p, .l=sqlite_load)
 }
