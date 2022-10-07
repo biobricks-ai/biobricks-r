@@ -4,7 +4,17 @@
 \alias{brick_load}
 \title{Return a list of tables for a brick}
 \usage{
-brick_load(brick, .p, .l)
+brick_load(
+  brick,
+  .p,
+  .l,
+  subdir = if (fs::dir_exists(brick_path(brick, "brick"))) {
+     "brick"
+ } else {
+   
+     "data"
+ }
+)
 }
 \arguments{
 \item{brick}{the name of the brick to load}

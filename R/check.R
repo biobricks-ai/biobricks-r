@@ -23,9 +23,13 @@ check_brick_exists <- function(brick){
   stop("missing brick ", brick, " try `brick_install(brick)`")
 }
 
+# TODO #20 clean this up after migrating all bricks to the new 'brick' directory tree
 check_brick_has_data <- function(brick){
   bp <- brick_path(brick,"data")
-  if(dir.exists(bp) && !purrr::is_empty(fs::dir_ls(bp))){ return(T) }
+  datadir <- dir.exists(bp) && !purrr::is_empty(fs::dir_ls(bp))
+  bp <- brick_path(brick,"brick")
+  brickdir <- dir.exists(bp) && !purrr::is_empty(fs::dir_ls(bp))
+  if(datadir || brickdir){ return(T) }
   stop("no data for ", brick, "\n`brick_pull` to pull data\n`brick_repro` to build data")
 }
 

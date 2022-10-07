@@ -16,10 +16,11 @@ brick_ls_remote <- \(brick,remote="https://ins-dvc.s3.amazonaws.com/insdvc"){
 #' Get the files in a brick
 #' @param brick the brick to get files for
 #' @param .p a predicate to filter returned files (must return true on file path)
+# TODO #20 clean this up after migrating all bricks to the new 'brick' directory tree
 #' @export
-brick_ls <- \(brick,.p=NULL) { 
+brick_ls <- \(brick,.p=NULL,subdir=if(fs::dir_exists(brick_path(brick,'brick'))){'brick'}else{'data'}) { 
   check_brick_has_data(brick)
-  res <- brick_path(brick,"data") |> fs::dir_ls(recurse = T)
+  res <- brick_path(brick,subdir) |> fs::dir_ls(recurse = T)
   if(is.null(.p)){ res }else{ purrr::keep(res,.p) }
 }
 
@@ -38,10 +39,11 @@ ptree <- \(x,p=names(x),pd=fs::path_dir(p),pr=purrr::map2(p,pd,fs::path_rel)){
 #' @param brick the name of the brick to load
 #' @param .p which files should be loaded this way?
 #' @param .l which loading function should be used?
+# TODO #20 clean this up after migrating all bricks to the new 'brick' directory tree
 #' @export
-brick_load <- function(brick, .p, .l) {
+brick_load <- function(brick, .p, .l, subdir=if(fs::dir_exists(brick_path(brick,'brick'))){'brick'}else{'data'}) {
   if(missing(.p) || missing(.l)){ return(brick_load_arrow(brick)) }
-  relpath <- brick_ls(brick,.p) |> fs::path_rel(brick_path(brick,"data"))
+  relpath <- brick_ls(brick,.p,subdir) |> fs::path_rel(brick_path(brick,subdir))
   brick_ls(brick,.p) |> purrr::map(.l) |> ptree(p=relpath)
 }
 

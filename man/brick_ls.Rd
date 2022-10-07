@@ -4,7 +4,16 @@
 \alias{brick_ls}
 \title{Get the files in a brick}
 \usage{
-brick_ls(brick, .p = NULL)
+brick_ls(
+  brick,
+  .p = NULL,
+  subdir = if (fs::dir_exists(brick_path(brick, "brick"))) {
+     "brick"
+ } else {
+   
+     "data"
+ }
+)
 }
 \arguments{
 \item{brick}{the brick to get files for}
