@@ -2,7 +2,7 @@
 #' @param path get path relative to bblib
 #' @export 
 bblib <- function(path=""){
-  if(Sys.getenv("bblib")==""){ stop("No bblib. Use `Sys.setenv(bblib='...')`") }
-  bblib = fs::dir_create(Sys.getenv("bblib"))
+  if(Sys.getenv("BBLIB")==""){ stop("No BBLIB. Use `Sys.setenv(BBLIB='...')`") }
+  bblib = fs::dir_create(Sys.getenv("BBLIB"))
   fs::path_real(bblib) |> fs::path(path)
 }
