@@ -5,8 +5,8 @@ initialize <- function(){
   
   if(!fs::is_dir(Sys.getenv("BBLIB"))){
     stop(
-      "bblib must be directory\n",
-      "* use `Sys.setenv(bblib='...')`")
+      "BBLIB must be directory\n",
+      "* use `Sys.setenv(BBLIB='...')`")
   }
 
   systemf("cd %s; git init",bblib())

@@ -1,7 +1,7 @@
-test_that("install-and-brick_pull", {
-  withr::local_envvar(list(bblib=""))
+test_that("initialize-without-BBLIB", {
+  withr::local_envvar(list(BBLIB=""))
   expect_error(initialize(),
-  "bblib must be directory\n* use `Sys.setenv(bblib='...')`",fixed=T)
+  "BBLIB must be directory\n* use `Sys.setenv(BBLIB='...')`",fixed=T)
 
   lib  <- local_bblib()
   emsg <- vglu("initialized biobricks to <dir>",dir=lib)

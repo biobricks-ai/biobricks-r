@@ -27,18 +27,16 @@ brick_install <- function(brick,pull=F){
 #' removes git submodule 
 #' @param brick the brick to remove
 #' @export
-brick_remove <- function(brick){
+brick_remove <- function (brick){
   c(check_init(), check_brick_exists(brick))
-  
-  brickdir <- brick_path(brick) 
-  brick    <- fs::path_rel(brickdir,bblib())
-  systemf("(cd $bblib; git rm -f %s)",brick)
-  systemf("(cd $bblib; rm -rf .git/modules/%s)",brick)
-  unlink(brickdir)
-  
-  brickorg <- fs::path_dir(brickdir)
-  if(fs::dir_ls(brickorg) |> purrr::is_empty()){ unlink(brickorg) } 
+  brickdir <- brick_path(brick)
+  brick <- fs::path_rel(brickdir, bblib())
+  systemf("(cd $bblib; git rm %s)", brick)
+  systemf("(cd $bblib; rm -rf .git/modules/%s)", brick)
+  systemf("(cd $bblib; git config --remove-section submodule.%s)", brick)
+  fs::dir_delete(brickdir)
 }
+
 
 #' Installs a brick from a github repo
 #' @param url a url like https://github.com/biobricks-ai/clinvar.git
@@ -48,6 +46,7 @@ brick_install_url <- function(url,repo){
   c(check_is_git_repo(url), check_can_install(repo), check_init())
 
   systemf("cd %s; git submodule add %s %s",bblib(),url,repo)
+  systemf("cd %s; git submodule update %s",bblib(),repo)
   
   systemf('cd %s; dvc cache dir ../../cache',     bblib(repo))
   systemf('cd %s; dvc config cache.shared group', bblib(repo))

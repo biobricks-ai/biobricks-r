@@ -7,10 +7,10 @@ systemf <- function(...,intern=FALSE,ignore.stdout=TRUE,ignore.stderr=TRUE){
 #' @param env environment in which to create a temporary biobicks library
 #' @export 
 local_bblib <- function(env=parent.frame()){
-  bblib <- withr::local_tempdir(.local_envir = env)
-  withr::local_envvar(list(bblib=bblib),.local_envir = env)
+  tmpdir <- withr::local_tempdir(.local_envir = env)
+  withr::local_envvar(list(BBLIB=tmpdir),.local_envir = env)
   biobricks::initialize()
-  bblib
+  tmpdir
 }
 
 # vglu or `varargs glue` a lightweight glue function to sub varargs into a string

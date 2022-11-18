@@ -41,7 +41,8 @@ test_that("install-and-remove-and-install works",{
   install_and_test_hello_brick()
   
   biobricks::brick_remove("hello-brick")
-  expect(purrr::is_empty(brick_path("hello-brick")),"hello-brick was not removed")
+  expect(purrr::is_empty(brick_path("hello-brick")),
+    "hello-brick was not removed")
   
   install_and_test_hello_brick()
 })

@@ -36,5 +36,5 @@ check_brick_has_data <- function(brick){
 check_init <- function(){
   init <- all(file.exists(bblib(".git")),bblib()!="")
   if(init){ return(T) }
-  stop("bblib is not initialized") 
+  stop("BBLIB is not initialized") 
 }

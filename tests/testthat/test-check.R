@@ -21,8 +21,8 @@ test_that("check_brick_exists", {
 })
 
 test_that("check_brick_has_data", {
-  withr::local_envvar(list(bblib=""))
-  expect_error(check_init(),"No bblib. Use `Sys.setenv(bblib='...')`",fixed=T)
+  withr::local_envvar(list(BBLIB=""))
+  expect_error(check_init(),"No BBLIB. Use `Sys.setenv(BBLIB='...')`",fixed=T)
   
   local_bblib()
   brick_install("hello-brick")
@@ -34,12 +34,12 @@ test_that("check_brick_has_data", {
 })
 
 test_that("check_init", {
-  withr::local_envvar(list(bblib=""))
-  expect_error(check_init(),"No bblib. Use `Sys.setenv(bblib='...')`",fixed=T)
+  withr::local_envvar(list(BBLIB=""))
+  expect_error(check_init(),"No BBLIB. Use `Sys.setenv(BBLIB='...')`",fixed=T)
 
   bblib <- withr::local_tempdir()
-  withr::local_envvar(list(bblib=bblib))
-  expect_error(check_init(),"bblib is not initialized",fixed=T)
+  withr::local_envvar(list(BBLIB=bblib))
+  expect_error(check_init(),"BBLIB is not initialized",fixed=T)
   
   initialize()
   expect_true(check_init())

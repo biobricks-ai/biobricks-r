@@ -11,8 +11,8 @@ brick_load(
   subdir = if (fs::dir_exists(brick_path(brick, "brick"))) {
      "brick"
  } else {
-   
-     "data"
+    
+    "data"
  }
 )
 }
