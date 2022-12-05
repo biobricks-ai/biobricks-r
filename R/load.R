@@ -52,7 +52,7 @@ brick_load <- function(brick, .p, .l, subdir=if(fs::dir_exists(brick_path(brick,
 #' @importFrom purrr partial
 #' @export
 brick_load_arrow <- \(brick){
-  is_tab  <- \(f){ fs::path_ext(f) %in% c("parquet","arrow","ipc","feather","csv","tsv","text") }
+  is_tab  <- \(f){ fs::path_ext(f) %in% c("parquet") }
   is_part <- \(f){ grepl("/.*\\.parquet/",f) } # datasets should be dirs with tab ext
   brick_load(brick, .p=\(f){ is_tab(f) && !is_part(f) }, .l=arrow::open_dataset)
 }
