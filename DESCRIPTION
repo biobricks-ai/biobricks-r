@@ -1,6 +1,6 @@
 Package: biobricks
 Title: install, pull, repro and load biobricks-ai data dependencies
-Version: 0.0.0.9028
+Version: 0.0.0.9029
 Authors@R:
     person("Thomas", "Luechtefeld", , "tom@insilica.co", role = c("aut", "cre"))
 Description: What the package does (one paragraph).

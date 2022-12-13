@@ -33,6 +33,11 @@ check_brick_has_data <- function(brick){
   stop("no data for ", brick, "\n`brick_pull` to pull data\n`brick_repro` to build data")
 }
 
+check_dir_access <- function(path){
+  if(file.access(path, 2) == 0){ return(TRUE) }
+  stop("user can't write to ", path)
+}
+
 check_init <- function(){
   init <- all(file.exists(bblib(".git")),bblib()!="")
   if(init){ return(T) }

@@ -51,3 +51,8 @@ test_that("check has git and has dvc", {
   expect_true(check_has_dvc())
   expect_error(check_has_dvc(fail = T),"dvc must be installed. See https://dvc.org/doc/install")
 })
+
+test_that("check_dir_access", {
+  expect_true(check_dir_access(tempdir()))
+  expect_error(check_dir_access("/"),"user can't write to /")
+})
