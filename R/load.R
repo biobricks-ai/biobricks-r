@@ -14,14 +14,14 @@ check_biobricks_installed <- function() {
 load <- function(brickref) {
   check_biobricks_installed()
   bb <- reticulate::import("biobricks")
+  
   assets <- bb$assets(brickref)
-  asslist <- lapply(assets, \(x){ 
-    assname <- fs::path_file(x)
-    print(sprintf("loading %s", assname))
+  names(assets) <- gsub(".parquet","",fs::path_file(assets))
+
+  purrr::imap(assets, \(x,name){ 
+    print(sprintf("loading %s", name))
     arrow::read_parquet(x,as_data_frame=FALSE) 
   })
-  names(asslist) <- fs::path_file(assets)
-  return(asslist)
 }
 
 #' Install a brickref
