@@ -11,7 +11,7 @@ check_biobricks_installed <- function() {
 #' Return a list of tables for a brick
 #' @param brickref the name of the brick to load
 #' @export
-load <- function(brickref) {
+bbload <- function(brickref) {
   check_biobricks_installed()
   bb <- reticulate::import("biobricks")
   
@@ -27,7 +27,7 @@ load <- function(brickref) {
 #' Install a brickref
 #' @param brickref either a repo name from github.com/biobricks-ai or a full github url.
 #' @export
-install <- function(brickref) {
+bbinstall <- function(brickref) {
   check_biobricks_installed()
   bb <- reticulate::import("biobricks")
   return(bb$install(brickref))

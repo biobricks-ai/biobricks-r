@@ -1,6 +1,6 @@
 Package: biobricks
 Title: Data dependency tools for Biobricks.ai
-Version: 0.0.0.9029
+Version: 0.0.1
 Authors@R:
     person("Thomas", "Luechtefeld", , "tom@insilica.co", role = c("aut", "cre"))
 Description: Biobricks makes it easy to pull and reuse public bioinformatics databases by wrapping the version control tool git and dvc.
