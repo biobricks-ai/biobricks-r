@@ -20,7 +20,7 @@ bbload <- function(brickref) {
 
   purrr::imap(assets, \(x,name){ 
     print(sprintf("loading %s", name))
-    arrow::read_parquet(x,as_data_frame=FALSE) 
+    arrow::open_dataset(x)
   })
 }
 
