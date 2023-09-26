@@ -1,2 +1,7 @@
+.*
+!.github
+!.gitignore
+!.Rbuildignore
+
 inst/doc
 result
