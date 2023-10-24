@@ -1,5 +1,5 @@
-test_that("bblib matches bblib environmental variable", {
-  tmp1 <- withr::local_tempdir()
-  withr::local_envvar(list(BBLIB=tmp1))
-  expect_equal(as.character(bblib()), tmp1)
+test_that("biobricks can load hello-brick", {
+  assets <- bbassets("hello-brick")
+  mynames <- c("rtbls.mtcars.parquet","rtbls.iris.parquet","iris.sqlite","mtcars.parquet")
+  expect_true(all(mynames %in% names(assets)))
 })
