@@ -9,8 +9,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-Suggests: 
-    testthat,
-    covr
+Suggests: testthat, covr
 Config/testthat/edition: 3
 Maintainer: Thomas Luechtefeld <tom@insilica.co>
+NeedsCompilation: no
+Packaged: 2023-10-27 14:29:26 UTC; tom
+Author: Thomas Luechtefeld [aut, cre]
+Built: R 4.1.2; ; 2023-10-27 14:29:39 UTC; unix
