@@ -6,3 +6,7 @@
 inst/doc
 result
 biobricks_*.tar.gz
+
+*.Rcheck
+*.log
+CRAN-SUBMISSION
