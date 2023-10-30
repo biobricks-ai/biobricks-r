@@ -1,6 +1,6 @@
 Package: biobricks
 Type: Package
-Title: Access Data Dependencies Installed With Biobricks.ai
+Title: Access Data Dependencies Installed with Biobricks.ai
 Version: 0.2.1
 Authors@R: 
     person("Thomas", "Luechtefeld", , "tom@insilica.co", role = c("aut", "cre"))
