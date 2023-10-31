@@ -11,6 +11,9 @@ bbversion <- function(){
 
 #' Return a list of tables for a brick
 #' @param brick the name of the brick to load
+#' @return A named list where each element is a character string representing 
+#'   the full path to a specific asset file. The keys of the list correspond to
+#'   the types of asset files available.
 #' @export
 bbassets <- function(brick) {
   check_biobricks_installed()
